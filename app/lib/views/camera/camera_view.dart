@@ -23,7 +23,7 @@ class CameraViewRoute extends AppRoute<void> {
           builder: (context) {
             return BlocProvider.value(
               value: cubit,
-              child: const Scaffold(body: CameraViewGuard()),
+              child: const Scaffold(body: SafeArea(child: CameraViewGuard())),
             );
           },
         );
@@ -43,8 +43,8 @@ class CameraViewGuard extends StatelessWidget {
         error: (s) => Center(
           child: Column(
             children: [
-              Text(s.code, style: TS.big.withColor(C.mid)),
-              Text(s.description, style: TS.larger.withColor(C.black)),
+              Text(s.code, style: TS.standard.withColor(C.mid)),
+              Text(s.description, style: TS.standardMinus.withColor(C.black)),
             ],
           ),
         ),
@@ -73,7 +73,23 @@ class CameraView extends HookWidget {
     final cameraController = state.controller;
     return Column(
       children: [
-        Expanded(child: CameraPreview(cameraController)),
+        const SizedBox(
+          height: 32,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Material(
+              borderRadius: BorderRadius.circular(16),
+              elevation: 16,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                // TODO some heavy calculations for a target zone
+                child: CameraPreview(cameraController),
+              ),
+            ),
+          ),
+        ),
         const SizedBox(
           height: 160,
           child: Center(
