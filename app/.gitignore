@@ -1,3 +1,6 @@
+# fvm symlink
+.fvm/flutter_sdk
+
 # Miscellaneous
 *.class
 *.log
