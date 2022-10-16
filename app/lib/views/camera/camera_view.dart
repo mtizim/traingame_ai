@@ -35,29 +35,31 @@ class CameraViewGuard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CameraCubit, CameraViewState>(
-        builder: (context, state) => state.map(
-              initial: (_) => const Center(
-                child: AppProgressIndicator(),
-              ),
-              initialized: (s) => CameraView(state: s),
-              error: (s) => Center(
-                child: Column(
-                  children: [
-                    Text(s.code, style: TS.big.withColor(C.mid)),
-                    Text(s.description, style: TS.larger.withColor(C.black)),
-                  ],
-                ),
-              ),
-              noAccess: (_) => Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Text(
-                      '''The application cannot function without camera access.
+      builder: (context, state) => state.map(
+        initial: (_) => const Center(
+          child: AppProgressIndicator(),
+        ),
+        initialized: (s) => CameraView(state: s),
+        error: (s) => Center(
+          child: Column(
+            children: [
+              Text(s.code, style: TS.big.withColor(C.mid)),
+              Text(s.description, style: TS.larger.withColor(C.black)),
+            ],
+          ),
+        ),
+        noAccess: (_) => Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Text(
+              '''The application cannot function without camera access.
                       \n Please enable camera access and reload the app''',
-                      style: TS.standard.withColor(C.mid)),
-                ),
-              ),
-            ));
+              style: TS.standard.withColor(C.mid),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -75,12 +77,13 @@ class CameraView extends HookWidget {
         const SizedBox(
           height: 160,
           child: Center(
-              child: Button(
-            child: Text(
-              "Dummy button",
-              style: TS.standardMinus,
+            child: Button(
+              child: Text(
+                "Dummy button",
+                style: TS.standardMinus,
+              ),
             ),
-          )),
+          ),
         )
       ],
     );

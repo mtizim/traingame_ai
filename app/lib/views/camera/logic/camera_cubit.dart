@@ -26,8 +26,12 @@ class CameraCubit extends Cubit<CameraViewState> {
         emit(const CameraViewState.noAccess());
         return;
       }
-      emit(CameraViewState.error(
-          code: e.code, description: e.description ?? ""));
+      emit(
+        CameraViewState.error(
+          code: e.code,
+          description: e.description ?? "",
+        ),
+      );
     }
 
     emit(CameraViewState.initialized(controller: controller));
@@ -44,10 +48,12 @@ class CameraCubit extends Cubit<CameraViewState> {
 @freezed
 class CameraViewState with _$CameraViewState {
   const factory CameraViewState.initial() = CameraViewStateInitial;
-  const factory CameraViewState.initialized(
-      {required CameraController controller}) = CameraViewStateInitialized;
-  const factory CameraViewState.error(
-      {required String code,
-      required String description}) = CameraViewStateError;
+  const factory CameraViewState.initialized({
+    required CameraController controller,
+  }) = CameraViewStateInitialized;
+  const factory CameraViewState.error({
+    required String code,
+    required String description,
+  }) = CameraViewStateError;
   const factory CameraViewState.noAccess() = CameraViewStateNoAccess;
 }

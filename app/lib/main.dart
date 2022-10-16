@@ -39,14 +39,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
         body: Builder(
-            builder: (context) => Center(
-                  child: Button(
-                      onTap: () => CameraViewRoute.goTo(context),
-                      child: const Text(
-                        "Camera view",
-                        style: TS.standard,
-                      )),
-                )),
+          builder: (context) => Center(
+            child: Button(
+              onTap: () => CameraViewRoute.goTo(context),
+              child: const Text(
+                "Camera view",
+                style: TS.standard,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
