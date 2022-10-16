@@ -2,6 +2,7 @@ import 'package:app/misc/reusable/app_page_route.dart';
 import 'package:app/misc/reusable/button.dart';
 import 'package:app/misc/reusable/progress_indicator.dart';
 import 'package:app/misc/styleconsts.dart';
+import 'package:app/views/camera/camera_overlay.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,8 +85,12 @@ class CameraView extends HookWidget {
               elevation: 16,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                // TODO some heavy calculations for a target zone
-                child: CameraPreview(cameraController),
+                child: CameraPreview(
+                  cameraController,
+                  child: CameraOverlay(
+                    controller: cameraController,
+                  ),
+                ),
               ),
             ),
           ),
