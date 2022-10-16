@@ -10,11 +10,19 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'logic/camera_cubit.dart';
 
 class CameraViewRoute extends AppRoute<void> {
-  CameraViewRoute()
+  static goTo(BuildContext context) async {
+    final cubit = CameraCubit();
+    await cubit.init();
+    // ignore: use_build_context_synchronously
+    await Navigator.of(context).push(CameraViewRoute(cubit));
+    await cubit.close();
+  }
+
+  CameraViewRoute(CameraCubit cubit)
       : super(
           builder: (context) {
-            return BlocProvider<CameraCubit>(
-              create: (context) => CameraCubit()..init(),
+            return BlocProvider.value(
+              value: cubit,
               child: const Scaffold(body: CameraViewGuard()),
             );
           },
@@ -33,13 +41,21 @@ class CameraViewGuard extends StatelessWidget {
               ),
               initialized: (s) => CameraView(state: s),
               error: (s) => Center(
-                child: Text(s.error, style: TS.big.withColor(C.mid)),
+                child: Column(
+                  children: [
+                    Text(s.code, style: TS.big.withColor(C.mid)),
+                    Text(s.description, style: TS.larger.withColor(C.black)),
+                  ],
+                ),
               ),
               noAccess: (_) => Center(
-                child: Text(
-                    '''The application cannot function without camera access.
-                    \n Please enable camera access and reload the app''',
-                    style: TS.big.withColor(C.mid)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Text(
+                      '''The application cannot function without camera access.
+                      \n Please enable camera access and reload the app''',
+                      style: TS.standard.withColor(C.mid)),
+                ),
               ),
             ));
   }

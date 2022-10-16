@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
         body: Builder(
             builder: (context) => Center(
                   child: Button(
-                      onTap: () =>
-                          Navigator.of(context).push(CameraViewRoute()),
+                      onTap: () => CameraViewRoute.goTo(context),
                       child: const Text(
                         "Camera view",
                         style: TS.standard,
