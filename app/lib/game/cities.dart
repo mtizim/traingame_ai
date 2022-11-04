@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum Cities {
   Edinburgh('Edinburgh'),
   Lisbon('Lisbon'),
@@ -31,7 +33,7 @@ enum Cities {
   Sofia('Sofia'),
   Smyrna('Smyrna'),
   Ankara('Ankara'),
-  Constantinople('Constantinople'),
+  Constantinopole('Constantinopole'),
   Erzurm('Erzurm'),
   Sochi('Sochi'),
   Sevastopol('Sevastopol'),
@@ -47,10 +49,10 @@ enum Cities {
   Petrograd('Petrograd'),
   Moscow('Moscow');
 
-  final String name;
-  const Cities(this.name);
+  final String _name;
+  const Cities(this._name);
 
-  String getName() {
-    return this.name;
+  String get name {
+    return _name;
   }
 }

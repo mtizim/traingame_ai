@@ -1,4 +1,6 @@
-import 'Cities.dart';
+import 'cities.dart';
+
+// ignore_for_file: constant_identifier_names
 
 enum Routes {
   Cadiz_Lisbon({Cities.Cadiz, Cities.Lisbon}, 2),
@@ -65,8 +67,8 @@ enum Routes {
   Athens_Smyrna({Cities.Athens, Cities.Smyrna}, 2),
   Sofia_Athens({Cities.Sofia, Cities.Athens}, 3),
   Smyrna_Ankara({Cities.Smyrna, Cities.Ankara}, 3),
-  Smyrna_Constantinople({Cities.Smyrna, Cities.Constantinople}, 2),
-  Sofia_Constantinople({Cities.Sofia, Cities.Constantinople}, 3),
+  Smyrna_Constantinople({Cities.Smyrna, Cities.Constantinopole}, 2),
+  Sofia_Constantinople({Cities.Sofia, Cities.Constantinopole}, 3),
   Sarajevo_Sofia({Cities.Sarajevo, Cities.Sofia}, 2),
   Zagreb_Sarajevo({Cities.Zagreb, Cities.Sarajevo}, 3),
   Vienna_Zagreb({Cities.Vienna, Cities.Zagreb}, 2),
@@ -75,9 +77,9 @@ enum Routes {
   Budapest_Sarajevo({Cities.Budapest, Cities.Sarajevo}, 3),
   Budapest_Bucharest({Cities.Budapest, Cities.Bucharest}, 4),
   Sofia_Bucharest({Cities.Sofia, Cities.Bucharest}, 2),
-  Bucharest_Constantinople({Cities.Bucharest, Cities.Constantinople}, 3),
-  Constantinople_Sevastopol({Cities.Constantinople, Cities.Sevastopol}, 4),
-  Constantinople_Ankara({Cities.Constantinople, Cities.Ankara}, 2),
+  Bucharest_Constantinople({Cities.Bucharest, Cities.Constantinopole}, 3),
+  Constantinople_Sevastopol({Cities.Constantinopole, Cities.Sevastopol}, 4),
+  Constantinople_Ankara({Cities.Constantinopole, Cities.Ankara}, 2),
   Ankara_Erzurm({Cities.Ankara, Cities.Erzurm}, 3),
   Sevastopol_Erzurm({Cities.Sevastopol, Cities.Erzurm}, 4),
   Sochi_Erzurm({Cities.Sochi, Cities.Erzurm}, 3),
@@ -89,33 +91,30 @@ enum Routes {
   Rostov_Sevastopol({Cities.Rostov, Cities.Sevastopol}, 4),
   Rostov_Sochi({Cities.Rostov, Cities.Sochi}, 3);
 
-  final Set<Cities> cities;
+  final Set<Cities> _cities;
   final int distance;
 
-  const Routes(this.cities, this.distance);
+  const Routes(this._cities, this.distance);
 
-  Set<Cities> getCities() {
-    return this.cities;
+  Set<Cities> get cities {
+    return _cities;
   }
 
-  List<String> getCitiesNames() {
-    List<String> names = [];
-    for (Cities city in this.getCities()) {
-      names.add(city.getName());
-    }
-    return names;
+  List<String> get citiesNames {
+    return cities.map((c) => c.name).toList();
   }
 
-  String toShortString() {
-    return "From " + this.getCitiesNames().join(' to ');
+  @override
+  String toString() {
+    return "From ${citiesNames.join(' to ')}";
   }
 
   int getDistance() {
-    return this.distance;
+    return distance;
   }
 
   int getPoints() {
-    switch (this.distance) {
+    switch (distance) {
       case 1:
         return 1;
       case 2:
