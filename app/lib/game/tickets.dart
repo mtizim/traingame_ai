@@ -4,7 +4,7 @@ import 'cities.dart';
 
 enum Tickets {
   //TEST TICKETS
-  Lisbon_Pamplona({Cities.Lisbon, Cities.Rostov}, 50),
+  Lisbon_Rostov({Cities.Lisbon, Cities.Rostov}, 50),
   Athina_Ancora({Cities.Athens, Cities.Ankara}, 5);
 
   final Set<Cities> _cities;

@@ -35,7 +35,7 @@ class Graph {
     var size = visited.length;
     while (!visited.contains(destination) && oldSize != size) {
       final newCities = visited.difference(oldVisited);
-      oldVisited = visited;
+      oldVisited = {...visited};
 
       visited.addAll(
         newCities.map((city) => neighbors(city)).expand((e) => e),
