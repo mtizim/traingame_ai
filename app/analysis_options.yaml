@@ -2,6 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    unawaited_futures: true
     strict_casts: true
     no_implicit_dynamic: true
     require_trailing_commas: true

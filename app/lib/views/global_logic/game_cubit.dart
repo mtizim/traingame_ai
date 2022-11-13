@@ -17,6 +17,10 @@ class GameCubit extends Cubit<GameCubitState> {
     emit(const GameCubitState.reset());
   }
 
+  void startCounting() {
+    _ensureCounting();
+  }
+
   GameCubitStateCounting _ensureCounting() {
     state.mapOrNull(
       finalized: (finalized) => emit(

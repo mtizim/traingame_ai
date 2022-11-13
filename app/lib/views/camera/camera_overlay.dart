@@ -12,7 +12,7 @@ class CameraOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Center(
         child: AspectRatio(
           aspectRatio: GameConsts.boardAspectRatio,

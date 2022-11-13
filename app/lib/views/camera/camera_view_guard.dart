@@ -11,14 +11,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'logic/camera_cubit.dart';
 
 class CameraViewRoute extends AppRoute<void> {
-  static goTo(BuildContext context) async {
+  static goTo(BuildContext context, {bool replace = false}) async {
     final gameCubit = BlocProvider.of<GameCubit>(context);
     final cameraCubit = CameraCubit(gameCubit);
     await cameraCubit.init();
-    // ignore: use_build_context_synchronously
-    await Navigator.of(context).push(
-      CameraViewRoute(cameraCubit),
-    );
+
+    if (replace) {
+      // ignore: use_build_context_synchronously
+      await Navigator.of(context).pushReplacement(
+        CameraViewRoute(cameraCubit),
+      );
+    } else {
+      // ignore: use_build_context_synchronously
+      await Navigator.of(context).push(
+        CameraViewRoute(cameraCubit),
+      );
+    }
     await cameraCubit.close();
   }
 
@@ -91,7 +99,7 @@ class _NoAccessView extends StatelessWidget {
               onTap: () async {
                 await AppSettings.openAppSettings();
                 // ignore: use_build_context_synchronously
-                BlocProvider.of<CameraCubit>(context).init();
+                await BlocProvider.of<CameraCubit>(context).init();
               },
               child: const Text(
                 "Otwórz ustawienia",

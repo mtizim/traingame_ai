@@ -23,6 +23,10 @@ class MutableGameState {
     }
   }
 
+  List<PlayerColors> getPlayerColors() {
+    return _players.keys.toList();
+  }
+
   void resetPlayers() {
     _players = HashMap();
   }

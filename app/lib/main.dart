@@ -1,7 +1,8 @@
 import 'package:app/misc/styleconsts.dart';
-import 'package:app/misc/reusable/button.dart';
 import 'package:app/views/camera/camera_view_guard.dart';
 import 'package:app/views/global_logic/game_cubit.dart';
+import 'package:app/views/initial_view.dart';
+import 'package:app/views/tickets/tickets_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,16 +43,20 @@ class App extends StatelessWidget {
               style: TS.standard,
             ),
           ),
-          body: Builder(
-            builder: (context) => Center(
-              child: Button(
-                onTap: () => CameraViewRoute.goTo(context),
-                child: const Text(
-                  "Camera view",
-                  style: TS.standard,
-                ),
-              ),
+          body: BlocConsumer<GameCubit, GameCubitState>(
+            listener: (context, state) => state.map<void>(
+              reset: (_) {},
+              // TODO go to the final screen
+              finalized: (_) {},
+              counting: (c) {
+                if (!c.routesKnown) {
+                  CameraViewRoute.goTo(context);
+                } else if (!c.ticketsKnown) {
+                  TicketsViewRoute.goTo(context, replace: true);
+                }
+              },
             ),
+            builder: (context, state) => const InitialScreen(),
           ),
         ),
       ),

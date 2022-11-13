@@ -48,13 +48,13 @@ class CameraCubit extends Cubit<CameraViewState> {
           initialized: (s) async {
             late final XFile image;
             try {
+              await s.controller.setFlashMode(FlashMode.off);
               image = await s.controller.takePicture();
               await s.controller.pausePreview();
             } on CameraException catch (e) {
               if (e.code == "Previous capture has not returned yet.") {
                 return false;
               }
-              await s.controller.setFlashMode(FlashMode.off);
               await s.controller.resumePreview();
               emit(
                 CameraViewState.error(
@@ -65,7 +65,6 @@ class CameraCubit extends Cubit<CameraViewState> {
               return false;
             }
             emit(s.copyWith(processing: true));
-            print("BEBUG photo taken");
             final results = await detectRoutesFromImage(image);
             gameCubit.consumeModelResults(results);
             return true;

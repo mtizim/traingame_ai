@@ -17,7 +17,7 @@ Future<List<ModelResult>> detectRoutesFromImage(XFile image) async {
   final processing = Future.delayed(const Duration(seconds: 1));
   final artificialDelay = Future.delayed(const Duration(seconds: 1));
 
-  Future.wait([processing, artificialDelay]);
+  await Future.wait([processing, artificialDelay]);
 
   return [
     ModelResult(PlayerColors.green, Routes.Amsterdam_Essen),
