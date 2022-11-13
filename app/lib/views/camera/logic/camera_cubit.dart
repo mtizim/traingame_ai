@@ -37,6 +37,10 @@ class CameraCubit extends Cubit<CameraViewState> {
     emit(CameraViewState.initialized(controller: controller));
   }
 
+  Future<void> takePhoto() async {
+    // TODO implement this
+  }
+
   @override
   Future<void> close() async {
     final controller = state.mapOrNull(initialized: (s) => s.controller);

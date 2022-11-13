@@ -1,6 +1,6 @@
 import 'package:app/misc/styleconsts.dart';
 import 'package:app/misc/reusable/button.dart';
-import 'package:app/views/camera/camera_view.dart';
+import 'package:app/views/camera/camera_view_guard.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
