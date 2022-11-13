@@ -10,6 +10,12 @@ class C {
 
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
+
+  static const playerBlack = black;
+  static const playerBlue = Colors.blue;
+  static const playerGreen = Colors.green;
+  static const playerYellow = Colors.yellow;
+  static const playerRed = Colors.red;
 }
 
 class TS {
