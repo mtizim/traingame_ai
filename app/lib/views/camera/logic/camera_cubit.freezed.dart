@@ -19,7 +19,8 @@ mixin _$CameraViewState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(CameraController controller) initialized,
+    required TResult Function(CameraController controller, bool processing)
+        initialized,
     required TResult Function(String code, String description) error,
     required TResult Function() noAccess,
   }) =>
@@ -27,7 +28,8 @@ mixin _$CameraViewState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(CameraController controller)? initialized,
+    TResult? Function(CameraController controller, bool processing)?
+        initialized,
     TResult? Function(String code, String description)? error,
     TResult? Function()? noAccess,
   }) =>
@@ -35,7 +37,7 @@ mixin _$CameraViewState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(CameraController controller)? initialized,
+    TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
     TResult Function()? noAccess,
     required TResult orElse(),
@@ -125,7 +127,8 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(CameraController controller) initialized,
+    required TResult Function(CameraController controller, bool processing)
+        initialized,
     required TResult Function(String code, String description) error,
     required TResult Function() noAccess,
   }) {
@@ -136,7 +139,8 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(CameraController controller)? initialized,
+    TResult? Function(CameraController controller, bool processing)?
+        initialized,
     TResult? Function(String code, String description)? error,
     TResult? Function()? noAccess,
   }) {
@@ -147,7 +151,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(CameraController controller)? initialized,
+    TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
     TResult Function()? noAccess,
     required TResult orElse(),
@@ -207,7 +211,7 @@ abstract class _$$CameraViewStateInitializedCopyWith<$Res> {
           $Res Function(_$CameraViewStateInitialized) then) =
       __$$CameraViewStateInitializedCopyWithImpl<$Res>;
   @useResult
-  $Res call({CameraController controller});
+  $Res call({CameraController controller, bool processing});
 }
 
 /// @nodoc
@@ -223,12 +227,17 @@ class __$$CameraViewStateInitializedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? controller = null,
+    Object? processing = null,
   }) {
     return _then(_$CameraViewStateInitialized(
       controller: null == controller
           ? _value.controller
           : controller // ignore: cast_nullable_to_non_nullable
               as CameraController,
+      processing: null == processing
+          ? _value.processing
+          : processing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -236,14 +245,17 @@ class __$$CameraViewStateInitializedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CameraViewStateInitialized implements CameraViewStateInitialized {
-  const _$CameraViewStateInitialized({required this.controller});
+  const _$CameraViewStateInitialized(
+      {required this.controller, required this.processing});
 
   @override
   final CameraController controller;
+  @override
+  final bool processing;
 
   @override
   String toString() {
-    return 'CameraViewState.initialized(controller: $controller)';
+    return 'CameraViewState.initialized(controller: $controller, processing: $processing)';
   }
 
   @override
@@ -252,11 +264,13 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
         (other.runtimeType == runtimeType &&
             other is _$CameraViewStateInitialized &&
             (identical(other.controller, controller) ||
-                other.controller == controller));
+                other.controller == controller) &&
+            (identical(other.processing, processing) ||
+                other.processing == processing));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, controller);
+  int get hashCode => Object.hash(runtimeType, controller, processing);
 
   @JsonKey(ignore: true)
   @override
@@ -269,35 +283,37 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(CameraController controller) initialized,
+    required TResult Function(CameraController controller, bool processing)
+        initialized,
     required TResult Function(String code, String description) error,
     required TResult Function() noAccess,
   }) {
-    return initialized(controller);
+    return initialized(controller, processing);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(CameraController controller)? initialized,
+    TResult? Function(CameraController controller, bool processing)?
+        initialized,
     TResult? Function(String code, String description)? error,
     TResult? Function()? noAccess,
   }) {
-    return initialized?.call(controller);
+    return initialized?.call(controller, processing);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(CameraController controller)? initialized,
+    TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
     TResult Function()? noAccess,
     required TResult orElse(),
   }) {
     if (initialized != null) {
-      return initialized(controller);
+      return initialized(controller, processing);
     }
     return orElse();
   }
@@ -342,10 +358,11 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
 
 abstract class CameraViewStateInitialized implements CameraViewState {
   const factory CameraViewStateInitialized(
-          {required final CameraController controller}) =
-      _$CameraViewStateInitialized;
+      {required final CameraController controller,
+      required final bool processing}) = _$CameraViewStateInitialized;
 
   CameraController get controller;
+  bool get processing;
   @JsonKey(ignore: true)
   _$$CameraViewStateInitializedCopyWith<_$CameraViewStateInitialized>
       get copyWith => throw _privateConstructorUsedError;
@@ -426,7 +443,8 @@ class _$CameraViewStateError implements CameraViewStateError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(CameraController controller) initialized,
+    required TResult Function(CameraController controller, bool processing)
+        initialized,
     required TResult Function(String code, String description) error,
     required TResult Function() noAccess,
   }) {
@@ -437,7 +455,8 @@ class _$CameraViewStateError implements CameraViewStateError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(CameraController controller)? initialized,
+    TResult? Function(CameraController controller, bool processing)?
+        initialized,
     TResult? Function(String code, String description)? error,
     TResult? Function()? noAccess,
   }) {
@@ -448,7 +467,7 @@ class _$CameraViewStateError implements CameraViewStateError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(CameraController controller)? initialized,
+    TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
     TResult Function()? noAccess,
     required TResult orElse(),
@@ -549,7 +568,8 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(CameraController controller) initialized,
+    required TResult Function(CameraController controller, bool processing)
+        initialized,
     required TResult Function(String code, String description) error,
     required TResult Function() noAccess,
   }) {
@@ -560,7 +580,8 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(CameraController controller)? initialized,
+    TResult? Function(CameraController controller, bool processing)?
+        initialized,
     TResult? Function(String code, String description)? error,
     TResult? Function()? noAccess,
   }) {
@@ -571,7 +592,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(CameraController controller)? initialized,
+    TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
     TResult Function()? noAccess,
     required TResult orElse(),

@@ -1,4 +1,5 @@
 import 'package:app/misc/reusable/button.dart';
+import 'package:app/misc/reusable/progress_indicator.dart';
 import 'package:app/misc/styleconsts.dart';
 import 'package:app/views/camera/camera_overlay.dart';
 import 'package:camera/camera.dart';
@@ -31,8 +32,27 @@ class CameraView extends HookWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: CameraPreview(
                   cameraController,
-                  child: CameraOverlay(
-                    controller: cameraController,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: state.processing ? 1 : 0,
+                          child: Container(
+                            color: C.dark.withAlpha(150),
+                            child: const Center(child: AppProgressIndicator()),
+                          ),
+                        ),
+                      ),
+                      CameraOverlay(
+                        controller: cameraController,
+                      ),
+                    ],
                   ),
                 ),
               ),

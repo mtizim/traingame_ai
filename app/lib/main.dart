@@ -1,15 +1,17 @@
 import 'package:app/misc/styleconsts.dart';
 import 'package:app/misc/reusable/button.dart';
 import 'package:app/views/camera/camera_view_guard.dart';
+import 'package:app/views/global_logic/game_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +33,23 @@ class MyApp extends StatelessWidget {
           onSurface: C.black,
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            title,
-            style: TS.standard,
+      home: BlocProvider(
+        create: (context) => GameCubit(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              title,
+              style: TS.standard,
+            ),
           ),
-        ),
-        body: Builder(
-          builder: (context) => Center(
-            child: Button(
-              onTap: () => CameraViewRoute.goTo(context),
-              child: const Text(
-                "Camera view",
-                style: TS.standard,
+          body: Builder(
+            builder: (context) => Center(
+              child: Button(
+                onTap: () => CameraViewRoute.goTo(context),
+                child: const Text(
+                  "Camera view",
+                  style: TS.standard,
+                ),
               ),
             ),
           ),

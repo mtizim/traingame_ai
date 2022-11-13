@@ -3,6 +3,7 @@ import 'package:app/misc/reusable/button.dart';
 import 'package:app/misc/reusable/progress_indicator.dart';
 import 'package:app/misc/styleconsts.dart';
 import 'package:app/views/camera/camera_view.dart';
+import 'package:app/views/global_logic/game_cubit.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,18 +12,21 @@ import 'logic/camera_cubit.dart';
 
 class CameraViewRoute extends AppRoute<void> {
   static goTo(BuildContext context) async {
-    final cubit = CameraCubit();
-    await cubit.init();
+    final gameCubit = BlocProvider.of<GameCubit>(context);
+    final cameraCubit = CameraCubit(gameCubit);
+    await cameraCubit.init();
     // ignore: use_build_context_synchronously
-    await Navigator.of(context).push(CameraViewRoute(cubit));
-    await cubit.close();
+    await Navigator.of(context).push(
+      CameraViewRoute(cameraCubit),
+    );
+    await cameraCubit.close();
   }
 
-  CameraViewRoute(CameraCubit cubit)
+  CameraViewRoute(CameraCubit cameraCubit)
       : super(
           builder: (context) {
             return BlocProvider.value(
-              value: cubit,
+              value: cameraCubit,
               child: const Scaffold(body: SafeArea(child: CameraViewGuard())),
             );
           },
