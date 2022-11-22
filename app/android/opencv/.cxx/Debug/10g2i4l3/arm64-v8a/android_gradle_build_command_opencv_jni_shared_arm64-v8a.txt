@@ -1,7 +1,0 @@
-Executable : C:\Users\SZYMON\AppData\Local\Android\Sdk\cmake\3.18.1\bin\ninja.exe
-arguments : 
--C
-C:\Users\SZYMON\AndroidStudioProjects\traingame_ai\app\android\opencv\.cxx\Debug\10g2i4l3\arm64-v8a
-opencv_jni_shared
-jvmArgs : 
-

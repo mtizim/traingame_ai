@@ -1,3 +1,0 @@
-C:/Users/SZYMON/AndroidStudioProjects/traingame_ai/app/android/opencv/.cxx/RelWithDebInfo/5e1z2m2v/x86/CMakeFiles/opencv_jni_shared.dir
-C:/Users/SZYMON/AndroidStudioProjects/traingame_ai/app/android/opencv/.cxx/RelWithDebInfo/5e1z2m2v/x86/CMakeFiles/edit_cache.dir
-C:/Users/SZYMON/AndroidStudioProjects/traingame_ai/app/android/opencv/.cxx/RelWithDebInfo/5e1z2m2v/x86/CMakeFiles/rebuild_cache.dir
