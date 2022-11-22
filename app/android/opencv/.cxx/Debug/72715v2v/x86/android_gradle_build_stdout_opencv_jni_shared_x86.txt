@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\SZYMON\AndroidStudioProjects\traingame_ai\app\android\opencv\.cxx\Debug\72715v2v\x86'
+ninja: no work to do.

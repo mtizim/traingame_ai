@@ -1,0 +1,3 @@
+C:/Users/SZYMON/AndroidStudioProjects/traingame_ai/app/android/opencv/.cxx/Debug/72715v2v/arm64-v8a/CMakeFiles/opencv_jni_shared.dir
+C:/Users/SZYMON/AndroidStudioProjects/traingame_ai/app/android/opencv/.cxx/Debug/72715v2v/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/SZYMON/AndroidStudioProjects/traingame_ai/app/android/opencv/.cxx/Debug/72715v2v/arm64-v8a/CMakeFiles/rebuild_cache.dir
