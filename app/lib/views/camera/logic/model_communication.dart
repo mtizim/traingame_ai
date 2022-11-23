@@ -34,7 +34,6 @@ Future<List<ModelResult>> detectRoutesFromImage(XFile image) async {
   return await result ?? [];
 }
 
-
 ModelResult? modelFromJson(LinkedHashMap<String,dynamic> json){
   for(Routes i in Routes.values){
     List<String> cities = i.citiesNames;
