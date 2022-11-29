@@ -23,12 +23,34 @@ class TicketsViewRoute extends AppRoute<void> {
     }
   }
 
-  TicketsViewRoute(TicketsViewCubit cameraCubit)
+  TicketsViewRoute(TicketsViewCubit ticketsViewCubit)
       : super(
           builder: (context) {
             return BlocProvider.value(
-              value: cameraCubit,
-              child: const Scaffold(body: SafeArea(child: _TicketsViewGuard())),
+              value: ticketsViewCubit,
+              child: Scaffold(
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  title: const Text(
+                    "Uzupełnij bilety graczy",
+                    style: TS.standard,
+                  ),
+                ),
+                floatingActionButton: FloatingActionButton.extended(
+                  elevation: 16,
+                  onPressed: () => ticketsViewCubit.finalize(),
+                  icon: Text(
+                    "Podlicz punkty",
+                    style: TS.standard.bold,
+                  ),
+                  label: const Icon(
+                    Icons.arrow_forward,
+                    size: 32,
+                  ),
+                  backgroundColor: C.mid,
+                ),
+                body: const SafeArea(child: _TicketsViewGuard()),
+              ),
             );
           },
         );
@@ -59,7 +81,6 @@ class TicketsView extends StatelessWidget {
   final TicketsViewStateInitialized state;
   @override
   Widget build(BuildContext context) {
-    print(state.playerColors);
     return CustomScrollView(
       slivers: List<int>.generate(state.playerColors.length, (i) => i)
               .map(
@@ -67,15 +88,14 @@ class TicketsView extends StatelessWidget {
                   final playerColor = state.playerColors[index];
                   return [
                     SliverAppBar(
-                      backgroundColor: _playerColorMap[playerColor]!,
-                      floating: true,
+                      backgroundColor: playerColorMap[playerColor]!,
                       pinned: true,
-                      expandedHeight: 96,
-                      collapsedHeight: 32 * (index + 1),
+                      expandedHeight: 64,
+                      collapsedHeight: 32,
                       toolbarHeight: 0,
                     ),
                     SliverToBoxAdapter(
-                      child: PlayerTickets(player: playerColor),
+                      child: PlayerTickets(state: state, player: playerColor),
                     )
                   ];
                 },
@@ -93,7 +113,7 @@ class TicketsView extends StatelessWidget {
   }
 }
 
-const _playerColorMap = {
+const playerColorMap = {
   PlayerColors.black: C.playerBlack,
   PlayerColors.red: C.playerRed,
   PlayerColors.blue: C.playerBlue,

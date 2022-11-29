@@ -18,7 +18,7 @@ class InitialScreen extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(
-            flex: 4,
+            flex: 6,
           ),
           const _Fancy(dotSize: dotSize),
           const SizedBox(height: 64),

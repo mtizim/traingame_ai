@@ -45,7 +45,21 @@ class CameraView extends HookWidget {
                           opacity: state.processing ? 1 : 0,
                           child: Container(
                             color: C.dark.withAlpha(150),
-                            child: const Center(child: AppProgressIndicator()),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  const Spacer(),
+                                  const AppProgressIndicator(),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    "Poczekaj na analizę zdjęcia",
+                                    textAlign: TextAlign.center,
+                                    style: TS.standard.bold.withColor(C.white),
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),

@@ -7,6 +7,7 @@ class C {
   static const mid = Color(0xFFFF4B3E);
   static const light = Color(0xFFFFB20F);
   static const lightest = Color(0xFFFFE548);
+  static const lightestest = Color.fromARGB(255, 255, 242, 171);
 
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);

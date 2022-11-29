@@ -5,7 +5,9 @@ import 'package:app/game/logic/game.dart';
 
 class FinalizedGameState {
   late HashMap<PlayerColors, Player> _players;
-  FinalizedGameState(HashMap<PlayerColors, Player> players);
+  FinalizedGameState(HashMap<PlayerColors, Player> players) {
+    _players = players;
+  }
 
   MutableGameState toMutable() {
     return MutableGameState.fromFinalized(_players);
@@ -21,8 +23,8 @@ class PlayerPoints {
   late final int _points;
 
   PlayerPoints(Player player) {
-    _color = player.color;
     _points = player.sumAllPoints();
+    _color = player.color;
   }
 
   PlayerColors get color => _color;

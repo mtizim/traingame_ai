@@ -19,24 +19,30 @@ mixin _$TicketsViewState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)
+    required TResult Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)
         initialized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)?
+    TResult? Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)?
         initialized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)?
+    TResult Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)?
         initialized,
     required TResult orElse(),
   }) =>
@@ -120,8 +126,10 @@ class _$TicketsViewStateInitial implements TicketsViewStateInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)
+    required TResult Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)
         initialized,
   }) {
     return initial();
@@ -131,8 +139,10 @@ class _$TicketsViewStateInitial implements TicketsViewStateInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)?
+    TResult? Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)?
         initialized,
   }) {
     return initial?.call();
@@ -142,8 +152,10 @@ class _$TicketsViewStateInitial implements TicketsViewStateInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)?
+    TResult Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)?
         initialized,
     required TResult orElse(),
   }) {
@@ -198,7 +210,7 @@ abstract class _$$TicketsViewStateInitializedCopyWith<$Res> {
   @useResult
   $Res call(
       {List<PlayerColors> playerColors,
-      PlayerColors currentlySelected,
+      Map<PlayerColors, List<Tickets>> ticketsMap,
       List<Tickets> availableTickets});
 }
 
@@ -215,7 +227,7 @@ class __$$TicketsViewStateInitializedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? playerColors = null,
-    Object? currentlySelected = null,
+    Object? ticketsMap = null,
     Object? availableTickets = null,
   }) {
     return _then(_$TicketsViewStateInitialized(
@@ -223,10 +235,10 @@ class __$$TicketsViewStateInitializedCopyWithImpl<$Res>
           ? _value._playerColors
           : playerColors // ignore: cast_nullable_to_non_nullable
               as List<PlayerColors>,
-      currentlySelected: null == currentlySelected
-          ? _value.currentlySelected
-          : currentlySelected // ignore: cast_nullable_to_non_nullable
-              as PlayerColors,
+      ticketsMap: null == ticketsMap
+          ? _value._ticketsMap
+          : ticketsMap // ignore: cast_nullable_to_non_nullable
+              as Map<PlayerColors, List<Tickets>>,
       availableTickets: null == availableTickets
           ? _value._availableTickets
           : availableTickets // ignore: cast_nullable_to_non_nullable
@@ -240,9 +252,10 @@ class __$$TicketsViewStateInitializedCopyWithImpl<$Res>
 class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
   const _$TicketsViewStateInitialized(
       {required final List<PlayerColors> playerColors,
-      required this.currentlySelected,
+      required final Map<PlayerColors, List<Tickets>> ticketsMap,
       required final List<Tickets> availableTickets})
       : _playerColors = playerColors,
+        _ticketsMap = ticketsMap,
         _availableTickets = availableTickets;
 
   final List<PlayerColors> _playerColors;
@@ -252,8 +265,13 @@ class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
     return EqualUnmodifiableListView(_playerColors);
   }
 
+  final Map<PlayerColors, List<Tickets>> _ticketsMap;
   @override
-  final PlayerColors currentlySelected;
+  Map<PlayerColors, List<Tickets>> get ticketsMap {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_ticketsMap);
+  }
+
   final List<Tickets> _availableTickets;
   @override
   List<Tickets> get availableTickets {
@@ -263,7 +281,7 @@ class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
 
   @override
   String toString() {
-    return 'TicketsViewState.initialized(playerColors: $playerColors, currentlySelected: $currentlySelected, availableTickets: $availableTickets)';
+    return 'TicketsViewState.initialized(playerColors: $playerColors, ticketsMap: $ticketsMap, availableTickets: $availableTickets)';
   }
 
   @override
@@ -273,8 +291,8 @@ class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
             other is _$TicketsViewStateInitialized &&
             const DeepCollectionEquality()
                 .equals(other._playerColors, _playerColors) &&
-            (identical(other.currentlySelected, currentlySelected) ||
-                other.currentlySelected == currentlySelected) &&
+            const DeepCollectionEquality()
+                .equals(other._ticketsMap, _ticketsMap) &&
             const DeepCollectionEquality()
                 .equals(other._availableTickets, _availableTickets));
   }
@@ -283,7 +301,7 @@ class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_playerColors),
-      currentlySelected,
+      const DeepCollectionEquality().hash(_ticketsMap),
       const DeepCollectionEquality().hash(_availableTickets));
 
   @JsonKey(ignore: true)
@@ -297,35 +315,41 @@ class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)
+    required TResult Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)
         initialized,
   }) {
-    return initialized(playerColors, currentlySelected, availableTickets);
+    return initialized(playerColors, ticketsMap, availableTickets);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)?
+    TResult? Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)?
         initialized,
   }) {
-    return initialized?.call(playerColors, currentlySelected, availableTickets);
+    return initialized?.call(playerColors, ticketsMap, availableTickets);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PlayerColors> playerColors,
-            PlayerColors currentlySelected, List<Tickets> availableTickets)?
+    TResult Function(
+            List<PlayerColors> playerColors,
+            Map<PlayerColors, List<Tickets>> ticketsMap,
+            List<Tickets> availableTickets)?
         initialized,
     required TResult orElse(),
   }) {
     if (initialized != null) {
-      return initialized(playerColors, currentlySelected, availableTickets);
+      return initialized(playerColors, ticketsMap, availableTickets);
     }
     return orElse();
   }
@@ -365,12 +389,12 @@ class _$TicketsViewStateInitialized implements TicketsViewStateInitialized {
 abstract class TicketsViewStateInitialized implements TicketsViewState {
   const factory TicketsViewStateInitialized(
           {required final List<PlayerColors> playerColors,
-          required final PlayerColors currentlySelected,
+          required final Map<PlayerColors, List<Tickets>> ticketsMap,
           required final List<Tickets> availableTickets}) =
       _$TicketsViewStateInitialized;
 
   List<PlayerColors> get playerColors;
-  PlayerColors get currentlySelected;
+  Map<PlayerColors, List<Tickets>> get ticketsMap;
   List<Tickets> get availableTickets;
   @JsonKey(ignore: true)
   _$$TicketsViewStateInitializedCopyWith<_$TicketsViewStateInitialized>

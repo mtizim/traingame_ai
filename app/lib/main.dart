@@ -2,6 +2,7 @@ import 'package:app/misc/styleconsts.dart';
 import 'package:app/views/camera/camera_view_guard.dart';
 import 'package:app/views/global_logic/game_cubit.dart';
 import 'package:app/views/initial_view.dart';
+import 'package:app/views/summary/summary_view.dart';
 import 'package:app/views/tickets/tickets_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = "TODO come up with a name";
+    const title = "TicketToRide Scanner";
     return MaterialApp(
       title: title,
       theme: ThemeData.from(
@@ -37,17 +38,14 @@ class App extends StatelessWidget {
       home: BlocProvider(
         create: (context) => GameCubit(),
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              title,
-              style: TS.standard,
-            ),
-          ),
           body: BlocConsumer<GameCubit, GameCubitState>(
             listener: (context, state) => state.map<void>(
-              reset: (_) {},
-              // TODO go to the final screen
-              finalized: (_) {},
+              reset: (_) {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              finalized: (c) {
+                SummaryViewRoute.goTo(context, c.gameState, replace: true);
+              },
               counting: (c) {
                 if (!c.routesKnown) {
                   CameraViewRoute.goTo(context);

@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
+import 'package:app/game/entities/tickets.dart';
 import 'package:app/game/logic/game.dart';
 import 'package:app/game/logic/summary.dart';
 import 'package:app/views/camera/logic/model_communication.dart';
@@ -41,8 +42,8 @@ class GameCubit extends Cubit<GameCubitState> {
     return state.mapOrNull(counting: ((c) => c))!;
   }
 
-  void _checkIfAllKnown() {
-    state.mapOrNull(
+  void _checkIfAllKnown(GameCubitState state_) {
+    state_.mapOrNull(
       counting: (s) {
         if (!(s.routesKnown && s.ticketsKnown)) return;
         emit(GameCubitState.finalized(gameState: s.gameState.finalize()));
@@ -65,8 +66,23 @@ class GameCubit extends Cubit<GameCubitState> {
     playersMap.forEach((playerColor, routes) {
       countingState.gameState.setPlayerRoutes(playerColor, routes);
     });
-    emit(countingState.copyWith(routesKnown: true));
-    _checkIfAllKnown();
+    final nextState = countingState.copyWith(routesKnown: true);
+    emit(nextState);
+    _checkIfAllKnown(nextState);
+  }
+
+  void consumeTickets(Map<PlayerColors, List<Tickets>> ticketsMap) {
+    final countingState = _ensureCounting();
+    for (final e in ticketsMap.entries) {
+      final playerColor = e.key;
+      final tickets = e.value;
+      for (final ticket in tickets) {
+        countingState.gameState.setPlayerTicket(playerColor, ticket);
+      }
+    }
+    final nextState = countingState.copyWith(ticketsKnown: true);
+    emit(nextState);
+    _checkIfAllKnown(nextState);
   }
 }
 

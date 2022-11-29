@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
+import 'package:app/game/entities/tickets.dart';
 import 'package:app/game/logic/summary.dart';
 
 class MutableGameState {
@@ -29,6 +30,14 @@ class MutableGameState {
 
   void resetPlayers() {
     _players = HashMap();
+  }
+
+  void setPlayerTicket(PlayerColors playerColor, Tickets ticket) {
+    if (!_players.containsKey(playerColor)) {
+      _players[playerColor] = Player(playerColor);
+    }
+    final player = _players[playerColor]!;
+    player.addTicket(ticket);
   }
 
   FinalizedGameState finalize() {

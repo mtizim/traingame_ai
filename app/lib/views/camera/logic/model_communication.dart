@@ -18,31 +18,34 @@ class ModelResult {
 Future<List<ModelResult>> detectRoutesFromImage(XFile image) async {
   const platform = MethodChannel("com.flutter.result/result");
   final bytes = await image.readAsBytes();
-  final processing =
-      platform.invokeMethod("detectRoutes",<String, Uint8List>{"bytes":bytes});
+  final processing = platform
+      .invokeMethod("detectRoutes", <String, Uint8List>{"bytes": bytes});
   final artificialDelay = Future.delayed(const Duration(seconds: 1));
   await Future.wait([processing, artificialDelay]);
 
-  //artificial json
-  var jsonList = await processing;
-  var result = <ModelResult>[];
-  for(String json in jsonList){
-    result.add(modelFromJson(jsonDecode(json)) as ModelResult);
+  // await is a no-op - the future is already finished
+  final jsonList = await processing;
+  final result = <ModelResult>[];
+  for (String json in jsonList) {
+    final model = modelFromJson(jsonDecode(json));
+    if (model != null) {
+      result.add(model);
+    }
   }
 
-  // await is a no-op - the future is already finished
-  return await result ?? [];
+  return result;
 }
 
-ModelResult? modelFromJson(LinkedHashMap<String,dynamic> json){
-  for(Routes i in Routes.values){
+ModelResult? modelFromJson(LinkedHashMap<String, dynamic> json) {
+  for (Routes i in Routes.values) {
     List<String> cities = i.citiesNames;
-    if (cities.toSet().containsAll(json['cities'].toSet())){
-      for(PlayerColors j in PlayerColors.values) {
-        if(j.name==json['PlayerColour']) {
+    if (cities.toSet().containsAll(json['cities'].toSet())) {
+      for (PlayerColors j in PlayerColors.values) {
+        if (j.name == json['PlayerColour']) {
           return ModelResult(j, i);
         }
       }
     }
   }
+  return null;
 }
