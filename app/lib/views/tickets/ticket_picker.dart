@@ -15,8 +15,11 @@ class TicketPicker extends HookWidget {
   Widget build(BuildContext context) {
     final possibleCities = useState(
       () {
-        final tmp =
-            availableTickets.map((e) => e.cities).expand((e) => e).toList();
+        final tmp = availableTickets
+            .map((e) => e.cities)
+            .expand((e) => e)
+            .toSet()
+            .toList();
         tmp.sort((a, b) => a.name.compareTo(b.name));
         return tmp;
       }(),
@@ -58,6 +61,7 @@ class TicketPicker extends HookWidget {
                                   .map((t) => t.cities)
                                   .expand((c) => c)
                                   .where((c) => c != city)
+                                  .toSet()
                                   .toList();
                               localPossibleCities
                                   .sort((a, b) => a.name.compareTo(b.name));

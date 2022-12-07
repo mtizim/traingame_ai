@@ -382,7 +382,8 @@ class _SecondPlace extends StatelessWidget {
         Text(
           "#2",
           style: TS.larger.bold.withColor(
-              second != null ? playerColorMap[second.color]! : C.lightestest),
+            second != null ? playerColorMap[second.color]! : C.lightestest,
+          ),
           textAlign: TextAlign.center,
         ),
       ],
