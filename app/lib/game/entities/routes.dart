@@ -14,6 +14,7 @@ enum Routes {
   Pamplona_Paris({Cities.Pamplona, Cities.Paris}, 4),
   Pamplona_Brest({Cities.Pamplona, Cities.Brest}, 4),
   Brest_Paris({Cities.Brest, Cities.Paris}, 3),
+  Dieppe_Paris({Cities.Dieppe, Cities.Paris}, 1),
   Brest_Dieppe({Cities.Brest, Cities.Dieppe}, 2),
   Dieppe_London({Cities.Dieppe, Cities.London}, 2),
   London_Edinburgh({Cities.London, Cities.Edinburgh}, 4),
