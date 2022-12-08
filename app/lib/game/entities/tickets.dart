@@ -42,7 +42,7 @@ enum Tickets {
   Essen_Kyiv({Cities.Essen, Cities.Kyiv}, 10),
   Kyiv_Sochi({Cities.Kyiv, Cities.Sochi}, 8),
   Amsterdam_Pamplona({Cities.Amsterdam, Cities.Pamplona}, 7),
-  Berlin({Cities.Berlin, Cities.Bucharest}, 8),
+  Berlin_Bucharest({Cities.Berlin, Cities.Bucharest}, 8),
   Cadiz_Stockholm({Cities.Cadiz, Cities.Stockholm}, 21),
   Brest_Petrograd({Cities.Brest, Cities.Petrograd}, 20),
   Edinburgh_Athens({Cities.Edinburgh, Cities.Athens}, 21),
