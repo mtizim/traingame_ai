@@ -24,7 +24,7 @@ class Player {
   }
 
   int sumAllPoints() {
-    return _routes.sumPoints() + _sumTicketsPoints();
+    return _routes.sumPoints() + _sumTicketsPoints() + _sumStationPoints();
   }
 
   void addRoute(Routes route) {
@@ -37,6 +37,10 @@ class Player {
 
   void addStation(Cities stationLocation) {
     _stations.add(stationLocation);
+  }
+
+  int _sumStationPoints() {
+    return (3 - _stations.length) * 4;
   }
 
   int _sumTicketsPoints() {
