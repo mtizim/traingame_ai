@@ -51,7 +51,8 @@ class GameCubit extends Cubit<GameCubitState> {
     );
   }
 
-  void consumeModelResults(List<ModelResult> results) {
+  void consumeModelResults(Result result) {
+    List<RouteResult> results = result.routesResults;
     final countingState = _ensureCounting();
     final detectedColors = results.map((r) => r.color).toSet();
     final playersMap = HashMap<PlayerColors, List<Routes>>.fromIterable(
