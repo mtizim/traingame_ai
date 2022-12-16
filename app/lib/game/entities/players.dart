@@ -18,7 +18,7 @@ class Player {
     _tickets = {};
   }
 
-  void resetRoutes() {
+  void reset() {
     _routes = PlayerRoutes();
     _tickets = {};
   }

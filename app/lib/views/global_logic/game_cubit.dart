@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:app/game/entities/cities.dart';
 import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
 import 'package:app/game/entities/tickets.dart';
@@ -52,20 +53,35 @@ class GameCubit extends Cubit<GameCubitState> {
   }
 
   void consumeModelResults(Result result) {
-    List<RouteResult> results = result.routesResults;
     final countingState = _ensureCounting();
-    final detectedColors = results.map((r) => r.color).toSet();
-    final playersMap = HashMap<PlayerColors, List<Routes>>.fromIterable(
+
+    List<RouteResult> routeResults = result.routesResults;
+    List<StationResult> stationResults = result.stationResults;
+    final detectedColors = routeResults.map((r) => r.color).toSet();
+    final playersRouteMap = HashMap<PlayerColors, List<Routes>>.fromIterable(
+      detectedColors,
+      key: (color) => color,
+      value: (color) => [],
+    );
+    final playersStationMap = HashMap<PlayerColors, List<Cities>>.fromIterable(
       detectedColors,
       key: (color) => color,
       value: (color) => [],
     );
 
-    for (final result in results) {
-      playersMap[result.color]!.add(result.route);
+    for (final result in routeResults) {
+      playersRouteMap[result.color]!.add(result.route);
     }
-    playersMap.forEach((playerColor, routes) {
+    for (final result in stationResults) {
+      playersStationMap[result.color]!.add(result.city);
+    }
+
+    countingState.gameState.resetPlayers();
+    playersRouteMap.forEach((playerColor, routes) {
       countingState.gameState.setPlayerRoutes(playerColor, routes);
+    });
+    playersStationMap.forEach((playerColor, stations) {
+      countingState.gameState.setPlayerStations(playerColor, stations);
     });
     final nextState = countingState.copyWith(routesKnown: true);
     emit(nextState);

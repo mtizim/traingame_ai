@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:app/game/entities/cities.dart';
 import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
 import 'package:app/game/entities/tickets.dart';
@@ -18,9 +19,18 @@ class MutableGameState {
       _players[playerColor] = Player(playerColor);
     }
     final player = _players[playerColor]!;
-    player.resetRoutes();
     for (final route in routes) {
       player.addRoute(route);
+    }
+  }
+
+  void setPlayerStations(PlayerColors playerColor, List<Cities> stations) {
+    if (!_players.containsKey(playerColor)) {
+      _players[playerColor] = Player(playerColor);
+    }
+    final player = _players[playerColor]!;
+    for (final station in stations) {
+      player.addStation(station);
     }
   }
 
