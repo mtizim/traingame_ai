@@ -22,6 +22,7 @@ mixin _$CameraViewState {
     required TResult Function(CameraController controller, bool processing)
         initialized,
     required TResult Function(String code, String description) error,
+    required TResult Function() retake,
     required TResult Function() noAccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -31,6 +32,7 @@ mixin _$CameraViewState {
     TResult? Function(CameraController controller, bool processing)?
         initialized,
     TResult? Function(String code, String description)? error,
+    TResult? Function()? retake,
     TResult? Function()? noAccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,6 +41,7 @@ mixin _$CameraViewState {
     TResult Function()? initial,
     TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
+    TResult Function()? retake,
     TResult Function()? noAccess,
     required TResult orElse(),
   }) =>
@@ -48,6 +51,7 @@ mixin _$CameraViewState {
     required TResult Function(CameraViewStateInitial value) initial,
     required TResult Function(CameraViewStateInitialized value) initialized,
     required TResult Function(CameraViewStateError value) error,
+    required TResult Function(CameraViewStateRetake value) retake,
     required TResult Function(CameraViewStateNoAccess value) noAccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +60,7 @@ mixin _$CameraViewState {
     TResult? Function(CameraViewStateInitial value)? initial,
     TResult? Function(CameraViewStateInitialized value)? initialized,
     TResult? Function(CameraViewStateError value)? error,
+    TResult? Function(CameraViewStateRetake value)? retake,
     TResult? Function(CameraViewStateNoAccess value)? noAccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +69,7 @@ mixin _$CameraViewState {
     TResult Function(CameraViewStateInitial value)? initial,
     TResult Function(CameraViewStateInitialized value)? initialized,
     TResult Function(CameraViewStateError value)? error,
+    TResult Function(CameraViewStateRetake value)? retake,
     TResult Function(CameraViewStateNoAccess value)? noAccess,
     required TResult orElse(),
   }) =>
@@ -130,6 +136,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
     required TResult Function(CameraController controller, bool processing)
         initialized,
     required TResult Function(String code, String description) error,
+    required TResult Function() retake,
     required TResult Function() noAccess,
   }) {
     return initial();
@@ -142,6 +149,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
     TResult? Function(CameraController controller, bool processing)?
         initialized,
     TResult? Function(String code, String description)? error,
+    TResult? Function()? retake,
     TResult? Function()? noAccess,
   }) {
     return initial?.call();
@@ -153,6 +161,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
     TResult Function()? initial,
     TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
+    TResult Function()? retake,
     TResult Function()? noAccess,
     required TResult orElse(),
   }) {
@@ -168,6 +177,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
     required TResult Function(CameraViewStateInitial value) initial,
     required TResult Function(CameraViewStateInitialized value) initialized,
     required TResult Function(CameraViewStateError value) error,
+    required TResult Function(CameraViewStateRetake value) retake,
     required TResult Function(CameraViewStateNoAccess value) noAccess,
   }) {
     return initial(this);
@@ -179,6 +189,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
     TResult? Function(CameraViewStateInitial value)? initial,
     TResult? Function(CameraViewStateInitialized value)? initialized,
     TResult? Function(CameraViewStateError value)? error,
+    TResult? Function(CameraViewStateRetake value)? retake,
     TResult? Function(CameraViewStateNoAccess value)? noAccess,
   }) {
     return initial?.call(this);
@@ -190,6 +201,7 @@ class _$CameraViewStateInitial implements CameraViewStateInitial {
     TResult Function(CameraViewStateInitial value)? initial,
     TResult Function(CameraViewStateInitialized value)? initialized,
     TResult Function(CameraViewStateError value)? error,
+    TResult Function(CameraViewStateRetake value)? retake,
     TResult Function(CameraViewStateNoAccess value)? noAccess,
     required TResult orElse(),
   }) {
@@ -286,6 +298,7 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
     required TResult Function(CameraController controller, bool processing)
         initialized,
     required TResult Function(String code, String description) error,
+    required TResult Function() retake,
     required TResult Function() noAccess,
   }) {
     return initialized(controller, processing);
@@ -298,6 +311,7 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
     TResult? Function(CameraController controller, bool processing)?
         initialized,
     TResult? Function(String code, String description)? error,
+    TResult? Function()? retake,
     TResult? Function()? noAccess,
   }) {
     return initialized?.call(controller, processing);
@@ -309,6 +323,7 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
     TResult Function()? initial,
     TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
+    TResult Function()? retake,
     TResult Function()? noAccess,
     required TResult orElse(),
   }) {
@@ -324,6 +339,7 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
     required TResult Function(CameraViewStateInitial value) initial,
     required TResult Function(CameraViewStateInitialized value) initialized,
     required TResult Function(CameraViewStateError value) error,
+    required TResult Function(CameraViewStateRetake value) retake,
     required TResult Function(CameraViewStateNoAccess value) noAccess,
   }) {
     return initialized(this);
@@ -335,6 +351,7 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
     TResult? Function(CameraViewStateInitial value)? initial,
     TResult? Function(CameraViewStateInitialized value)? initialized,
     TResult? Function(CameraViewStateError value)? error,
+    TResult? Function(CameraViewStateRetake value)? retake,
     TResult? Function(CameraViewStateNoAccess value)? noAccess,
   }) {
     return initialized?.call(this);
@@ -346,6 +363,7 @@ class _$CameraViewStateInitialized implements CameraViewStateInitialized {
     TResult Function(CameraViewStateInitial value)? initial,
     TResult Function(CameraViewStateInitialized value)? initialized,
     TResult Function(CameraViewStateError value)? error,
+    TResult Function(CameraViewStateRetake value)? retake,
     TResult Function(CameraViewStateNoAccess value)? noAccess,
     required TResult orElse(),
   }) {
@@ -446,6 +464,7 @@ class _$CameraViewStateError implements CameraViewStateError {
     required TResult Function(CameraController controller, bool processing)
         initialized,
     required TResult Function(String code, String description) error,
+    required TResult Function() retake,
     required TResult Function() noAccess,
   }) {
     return error(code, description);
@@ -458,6 +477,7 @@ class _$CameraViewStateError implements CameraViewStateError {
     TResult? Function(CameraController controller, bool processing)?
         initialized,
     TResult? Function(String code, String description)? error,
+    TResult? Function()? retake,
     TResult? Function()? noAccess,
   }) {
     return error?.call(code, description);
@@ -469,6 +489,7 @@ class _$CameraViewStateError implements CameraViewStateError {
     TResult Function()? initial,
     TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
+    TResult Function()? retake,
     TResult Function()? noAccess,
     required TResult orElse(),
   }) {
@@ -484,6 +505,7 @@ class _$CameraViewStateError implements CameraViewStateError {
     required TResult Function(CameraViewStateInitial value) initial,
     required TResult Function(CameraViewStateInitialized value) initialized,
     required TResult Function(CameraViewStateError value) error,
+    required TResult Function(CameraViewStateRetake value) retake,
     required TResult Function(CameraViewStateNoAccess value) noAccess,
   }) {
     return error(this);
@@ -495,6 +517,7 @@ class _$CameraViewStateError implements CameraViewStateError {
     TResult? Function(CameraViewStateInitial value)? initial,
     TResult? Function(CameraViewStateInitialized value)? initialized,
     TResult? Function(CameraViewStateError value)? error,
+    TResult? Function(CameraViewStateRetake value)? retake,
     TResult? Function(CameraViewStateNoAccess value)? noAccess,
   }) {
     return error?.call(this);
@@ -506,6 +529,7 @@ class _$CameraViewStateError implements CameraViewStateError {
     TResult Function(CameraViewStateInitial value)? initial,
     TResult Function(CameraViewStateInitialized value)? initialized,
     TResult Function(CameraViewStateError value)? error,
+    TResult Function(CameraViewStateRetake value)? retake,
     TResult Function(CameraViewStateNoAccess value)? noAccess,
     required TResult orElse(),
   }) {
@@ -526,6 +550,128 @@ abstract class CameraViewStateError implements CameraViewState {
   @JsonKey(ignore: true)
   _$$CameraViewStateErrorCopyWith<_$CameraViewStateError> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CameraViewStateRetakeCopyWith<$Res> {
+  factory _$$CameraViewStateRetakeCopyWith(_$CameraViewStateRetake value,
+          $Res Function(_$CameraViewStateRetake) then) =
+      __$$CameraViewStateRetakeCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CameraViewStateRetakeCopyWithImpl<$Res>
+    extends _$CameraViewStateCopyWithImpl<$Res, _$CameraViewStateRetake>
+    implements _$$CameraViewStateRetakeCopyWith<$Res> {
+  __$$CameraViewStateRetakeCopyWithImpl(_$CameraViewStateRetake _value,
+      $Res Function(_$CameraViewStateRetake) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CameraViewStateRetake implements CameraViewStateRetake {
+  const _$CameraViewStateRetake();
+
+  @override
+  String toString() {
+    return 'CameraViewState.retake()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CameraViewStateRetake);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(CameraController controller, bool processing)
+        initialized,
+    required TResult Function(String code, String description) error,
+    required TResult Function() retake,
+    required TResult Function() noAccess,
+  }) {
+    return retake();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(CameraController controller, bool processing)?
+        initialized,
+    TResult? Function(String code, String description)? error,
+    TResult? Function()? retake,
+    TResult? Function()? noAccess,
+  }) {
+    return retake?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(CameraController controller, bool processing)? initialized,
+    TResult Function(String code, String description)? error,
+    TResult Function()? retake,
+    TResult Function()? noAccess,
+    required TResult orElse(),
+  }) {
+    if (retake != null) {
+      return retake();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CameraViewStateInitial value) initial,
+    required TResult Function(CameraViewStateInitialized value) initialized,
+    required TResult Function(CameraViewStateError value) error,
+    required TResult Function(CameraViewStateRetake value) retake,
+    required TResult Function(CameraViewStateNoAccess value) noAccess,
+  }) {
+    return retake(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CameraViewStateInitial value)? initial,
+    TResult? Function(CameraViewStateInitialized value)? initialized,
+    TResult? Function(CameraViewStateError value)? error,
+    TResult? Function(CameraViewStateRetake value)? retake,
+    TResult? Function(CameraViewStateNoAccess value)? noAccess,
+  }) {
+    return retake?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CameraViewStateInitial value)? initial,
+    TResult Function(CameraViewStateInitialized value)? initialized,
+    TResult Function(CameraViewStateError value)? error,
+    TResult Function(CameraViewStateRetake value)? retake,
+    TResult Function(CameraViewStateNoAccess value)? noAccess,
+    required TResult orElse(),
+  }) {
+    if (retake != null) {
+      return retake(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CameraViewStateRetake implements CameraViewState {
+  const factory CameraViewStateRetake() = _$CameraViewStateRetake;
 }
 
 /// @nodoc
@@ -571,6 +717,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
     required TResult Function(CameraController controller, bool processing)
         initialized,
     required TResult Function(String code, String description) error,
+    required TResult Function() retake,
     required TResult Function() noAccess,
   }) {
     return noAccess();
@@ -583,6 +730,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
     TResult? Function(CameraController controller, bool processing)?
         initialized,
     TResult? Function(String code, String description)? error,
+    TResult? Function()? retake,
     TResult? Function()? noAccess,
   }) {
     return noAccess?.call();
@@ -594,6 +742,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
     TResult Function()? initial,
     TResult Function(CameraController controller, bool processing)? initialized,
     TResult Function(String code, String description)? error,
+    TResult Function()? retake,
     TResult Function()? noAccess,
     required TResult orElse(),
   }) {
@@ -609,6 +758,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
     required TResult Function(CameraViewStateInitial value) initial,
     required TResult Function(CameraViewStateInitialized value) initialized,
     required TResult Function(CameraViewStateError value) error,
+    required TResult Function(CameraViewStateRetake value) retake,
     required TResult Function(CameraViewStateNoAccess value) noAccess,
   }) {
     return noAccess(this);
@@ -620,6 +770,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
     TResult? Function(CameraViewStateInitial value)? initial,
     TResult? Function(CameraViewStateInitialized value)? initialized,
     TResult? Function(CameraViewStateError value)? error,
+    TResult? Function(CameraViewStateRetake value)? retake,
     TResult? Function(CameraViewStateNoAccess value)? noAccess,
   }) {
     return noAccess?.call(this);
@@ -631,6 +782,7 @@ class _$CameraViewStateNoAccess implements CameraViewStateNoAccess {
     TResult Function(CameraViewStateInitial value)? initial,
     TResult Function(CameraViewStateInitialized value)? initialized,
     TResult Function(CameraViewStateError value)? error,
+    TResult Function(CameraViewStateRetake value)? retake,
     TResult Function(CameraViewStateNoAccess value)? noAccess,
     required TResult orElse(),
   }) {

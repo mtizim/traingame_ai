@@ -52,12 +52,21 @@ class GameCubit extends Cubit<GameCubitState> {
     );
   }
 
-  void consumeModelResults(Result result) {
+  bool consumeModelResults(Result result) {
     final countingState = _ensureCounting();
+
+    if (!result.perspectiveSuccess) {
+      return false;
+    }
 
     List<RouteResult> routeResults = result.routesResults;
     List<StationResult> stationResults = result.stationResults;
     final detectedColors = routeResults.map((r) => r.color).toSet();
+
+    if (detectedColors.isEmpty) {
+      return false;
+    }
+
     final playersRouteMap = HashMap<PlayerColors, List<Routes>>.fromIterable(
       detectedColors,
       key: (color) => color,
@@ -86,6 +95,7 @@ class GameCubit extends Cubit<GameCubitState> {
     final nextState = countingState.copyWith(routesKnown: true);
     emit(nextState);
     _checkIfAllKnown(nextState);
+    return true;
   }
 
   void consumeTickets(Map<PlayerColors, List<Tickets>> ticketsMap) {

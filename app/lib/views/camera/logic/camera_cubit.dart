@@ -11,6 +11,8 @@ class CameraCubit extends Cubit<CameraViewState> {
 
   CameraCubit(this.gameCubit) : super(const CameraViewState.initial());
 
+  Future<void> reset() => init();
+
   Future<void> init() async {
     final cameras = await availableCameras();
     final camera = cameras.firstWhere(
@@ -66,8 +68,11 @@ class CameraCubit extends Cubit<CameraViewState> {
             }
             emit(s.copyWith(processing: true));
             final results = await detectRoutesFromImage(image);
-            gameCubit.consumeModelResults(results);
-            return true;
+            final resultsSuccess = gameCubit.consumeModelResults(results);
+            if (!resultsSuccess) {
+              emit(const CameraViewState.retake());
+            }
+            return resultsSuccess;
           },
         ) ??
         true;
@@ -92,5 +97,6 @@ class CameraViewState with _$CameraViewState {
     required String code,
     required String description,
   }) = CameraViewStateError;
+  const factory CameraViewState.retake() = CameraViewStateRetake;
   const factory CameraViewState.noAccess() = CameraViewStateNoAccess;
 }

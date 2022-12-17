@@ -61,6 +61,7 @@ class CameraViewGuard extends StatelessWidget {
           ),
         ),
         noAccess: (_) => const _NoAccessView(),
+        retake: (_) => const _RetakeView(),
       ),
     );
   }
@@ -103,6 +104,52 @@ class _NoAccessView extends StatelessWidget {
               },
               child: const Text(
                 "Otwórz ustawienia",
+                style: TS.standard,
+              ),
+            ),
+            const Spacer(
+              flex: 2,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RetakeView extends StatelessWidget {
+  const _RetakeView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        child: Column(
+          children: [
+            const Spacer(
+              flex: 3,
+            ),
+            Row(
+              children: [
+                const Icon(Icons.priority_high, size: 64),
+                Expanded(
+                  child: Text(
+                    '''Nie udało się zanalizować zdjęcia''',
+                    style: TS.standardMinus.withColor(C.mid),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 64),
+            const Spacer(flex: 1),
+            Button(
+              onTap: () async =>
+                  await BlocProvider.of<CameraCubit>(context).reset(),
+              child: const Text(
+                "Spróbuj zrobić zdjęcie ponownie",
                 style: TS.standard,
               ),
             ),
