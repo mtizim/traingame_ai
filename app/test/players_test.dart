@@ -1,3 +1,4 @@
+import 'package:app/game/entities/player_routes.dart';
 import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
 import 'package:app/game/entities/tickets.dart';
@@ -13,12 +14,15 @@ void main() {
   });
   test("New player has 12 points", () {
     Player playerRed = Player(PlayerColors.red);
-    expect(playerRed.sumAllPoints(), 12);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12);
   });
   test("Adding one route", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Cadiz_Lisbon);
-    expect(playerRed.sumAllPoints(), 12 + Routes.Cadiz_Lisbon.distance);
+    expect(
+      playerRed.sumAllPoints([playerRed].allRoutes()),
+      12 + Routes.Cadiz_Lisbon.distance,
+    );
   });
   test("Adding multiple routes", () {
     Player playerRed = Player(PlayerColors.red);
@@ -27,19 +31,19 @@ void main() {
     playerRed.addRoute(Routes.Madrid_Barcelona);
     playerRed.addRoute(Routes.Pamplona_Barcelona);
 
-    expect(playerRed.sumAllPoints(), 12 + 10);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12 + 10);
   });
   test("Adding one unfinished ticket", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addTicket(Tickets.Athens_Ankara);
-    expect(playerRed.sumAllPoints(), 12 + -5);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12 + -5);
   });
   test("Adding one finished ticket", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Athens_Smyrna);
     playerRed.addRoute(Routes.Smyrna_Ankara);
     playerRed.addTicket(Tickets.Athens_Ankara);
-    expect(playerRed.sumAllPoints(), 12 + 11);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12 + 11);
   });
   test("Adding multiple unfinished tickets", () {
     Player playerRed = Player(PlayerColors.red);
@@ -47,7 +51,7 @@ void main() {
     playerRed.addTicket(Tickets.Berlin_Bucharest);
     playerRed.addTicket(Tickets.Budapest_Sofia);
     playerRed.addTicket(Tickets.Madrid_Zurich);
-    expect(playerRed.sumAllPoints(), 12 + -26);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12 + -26);
   });
   test("Adding multiple finished tickets", () {
     Player playerRed = Player(PlayerColors.red);
@@ -60,14 +64,14 @@ void main() {
     playerRed.addRoute(Routes.Budapest_Bucharest); //7
     playerRed.addTicket(Tickets.Budapest_Sofia); //5
     playerRed.addRoute(Routes.Sofia_Bucharest); //2
-    expect(playerRed.sumAllPoints(), 12 + 38);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12 + 38);
   });
   test("Reset routes", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Athens_Smyrna);
     playerRed.addRoute(Routes.Smyrna_Ankara);
     playerRed.reset();
-    expect(playerRed.sumAllPoints(), 12 + 0);
+    expect(playerRed.sumAllPoints([playerRed].allRoutes()), 12 + 0);
   });
   test("Longest route 1", () {
     Player playerRed = Player(PlayerColors.red);
@@ -89,4 +93,13 @@ void main() {
     playerRed.addRoute(Routes.Ankara_Erzurm);
     expect(playerRed.getMaxRouteLength(), 15);
   });
+}
+
+extension _AllPlayerRoutes on Iterable<Player> {
+  PlayerRoutes allRoutes() {
+    final res = PlayerRoutes();
+    // ignore: avoid_function_literals_in_foreach_calls
+    forEach((player) => res.addRoutes(player.routes.routes));
+    return res;
+  }
 }

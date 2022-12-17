@@ -1,11 +1,7 @@
-import 'dart:math';
-
 import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
 import 'package:app/game/entities/tickets.dart';
 import 'package:app/game/logic/game.dart';
-import 'package:app/game/logic/summary.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:app/game/entities/cities.dart';
 

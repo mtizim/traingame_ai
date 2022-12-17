@@ -25,8 +25,10 @@ class Player {
     _stations = [];
   }
 
-  int sumAllPoints() {
-    return _routes.sumPoints() + _sumTicketsPoints() + _sumStationPoints();
+  int sumAllPoints(PlayerRoutes allPlayerRoutes) {
+    return _routes.sumPoints() +
+        _sumTicketsPoints(allPlayerRoutes) +
+        _sumStationPoints();
   }
 
   void addRoute(Routes route) {
@@ -45,12 +47,13 @@ class Player {
     return (3 - _stations.length) * 4;
   }
 
-  int _sumTicketsPoints() {
+  int _sumTicketsPoints(PlayerRoutes allPlayerRoutes) {
     final possibleStationRoutes = Routes.values
         .where(
           (route) => _stations
               .any((stationLocation) => route.cities.contains(stationLocation)),
         )
+        .where((route) => allPlayerRoutes.routes.contains(route))
         .where((route) => !_routes.routes.contains(route))
         .toSet();
 
@@ -158,4 +161,6 @@ class Player {
         )
         .reduce(max);
   }
+
+  PlayerRoutes get routes => _routes;
 }

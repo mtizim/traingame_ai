@@ -9,6 +9,10 @@ class PlayerRoutes {
     routes.add(route);
   }
 
+  void addRoutes(Iterable<Routes> routes_) {
+    routes.addAll(routes_);
+  }
+
   List<Cities> neighbors(Cities city) {
     return routes
         .where((route) => route.cities.contains(city))
