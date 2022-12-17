@@ -67,7 +67,7 @@ class Player {
     var maxPossibleSum = 0;
     final stationCombinationLengths =
         possibleStationRouteCombinations.map((r) => r.length).toList();
-    final combinations = stationCombinationLengths.reduce((a, b) => a * b);
+    final combinations = stationCombinationLengths.fold(1,(a, b) => a * b);
     for (var i = 0; i < combinations; i++) {
       final indices = [];
       var j = i;
