@@ -57,34 +57,27 @@ void main() {
   });
   test("Longest routes", () {
     MutableGameState game = MutableGameState();
-    game.setPlayerRoutes(PlayerColors.green, [Routes.Sarajevo_Sofia]);
-    game.setPlayerRoutes(PlayerColors.blue, [Routes.Budapest_Sarajevo]);
-    game.setPlayerRoutes(PlayerColors.black, [Routes.Vienna_Budapest]);
+    game.setPlayerRoutes(PlayerColors.green, [Routes.Sarajevo_Sofia]); //2
+    game.setPlayerRoutes(PlayerColors.blue, [Routes.Budapest_Sarajevo]); //3
+    game.setPlayerRoutes(PlayerColors.black, [Routes.Vienna_Budapest]); //1
     game.setPlayerStations(PlayerColors.blue, [Cities.Sarajevo]);
-    for(PlayerPoints p in game.finalize().getSummary()){
-      switch(p.color){
-        case PlayerColors.blue:{
-          expect(p.maxRouteLength, 3);
-        }
-        break;
-        case PlayerColors.green:{
-          expect(p.maxRouteLength, 2);
-        }
-        break;
-        case PlayerColors.black:{
-          expect(p.maxRouteLength, 1);
-        }
-        break;
-        case PlayerColors.red:{
-          expect(p.maxRouteLength, 0);
-        }
-        break;
-        case PlayerColors.yellow:{
-          expect(p.maxRouteLength, 0);
-        }
-        break;
-      }
 
-    }
+    // ignore: prefer_for_elements_to_map_fromiterable
+    final playerPointsMap = Map<PlayerColors, int>.fromIterable(
+      game.finalize().getSummary(),
+      key: (p) => p.color,
+      value: (p) => p.maxRouteLength,
+    );
+
+    expect(
+      [
+        PlayerColors.blue,
+        PlayerColors.green,
+        PlayerColors.black,
+        PlayerColors.red,
+        PlayerColors.yellow
+      ].map((v) => playerPointsMap[v]).toList(),
+      [3, 2, 1, null, null],
+    );
   });
 }

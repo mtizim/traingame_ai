@@ -51,8 +51,8 @@ class Player {
           (route) => _stations
               .any((stationLocation) => route.cities.contains(stationLocation)),
         )
+        .where((route) => !_routes.routes.contains(route))
         .toSet();
-    possibleStationRoutes.removeAll({_routes.routes});
 
     final possibleStationRouteCombinations = _stations
         .map(
