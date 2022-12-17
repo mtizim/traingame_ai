@@ -64,10 +64,10 @@ class Player {
 
     // Finds the max amount of points for all possible combinations of routes
     // picked to be used for the stations
-    var maxPossibleSum = 0;
+    int? maxPossibleSum;
     final stationCombinationLengths =
         possibleStationRouteCombinations.map((r) => r.length).toList();
-    final combinations = stationCombinationLengths.fold(1,(a, b) => a * b);
+    final combinations = stationCombinationLengths.fold(1, (a, b) => a * b);
     for (var i = 0; i < combinations; i++) {
       final indices = [];
       var j = i;
@@ -84,14 +84,14 @@ class Player {
       _routes.routes.addAll(pickedRoutes);
 
       final sum = __sumTicketsPoints();
-      if (sum >= maxPossibleSum) {
+      if (maxPossibleSum == null || sum >= maxPossibleSum) {
         maxPossibleSum = sum;
       }
 
       _routes.routes.removeAll(pickedRoutes);
     }
 
-    return maxPossibleSum;
+    return maxPossibleSum!;
   }
 
   int __sumTicketsPoints() {
@@ -132,7 +132,9 @@ class Player {
   int getMaxRouteLength() {
     // naive algorithm because N is really small
     final routes = _routes.routes;
-    if(routes.isEmpty){return 0;}
+    if (routes.isEmpty) {
+      return 0;
+    }
     final cities = routes.map((route) => route.cities).expand((e) => e).toSet();
     return cities.map((city) => _getMaxRouteLength(city, routes)).reduce(max);
   }

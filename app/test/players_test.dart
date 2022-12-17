@@ -18,7 +18,7 @@ void main() {
   test("Adding one route", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Cadiz_Lisbon);
-    expect(playerRed.sumAllPoints(), 14);
+    expect(playerRed.sumAllPoints(), 12 + Routes.Cadiz_Lisbon.distance);
   });
   test("Adding multiple routes", () {
     Player playerRed = Player(PlayerColors.red);
@@ -26,29 +26,30 @@ void main() {
     playerRed.addRoute(Routes.Cadiz_Madrid);
     playerRed.addRoute(Routes.Madrid_Barcelona);
     playerRed.addRoute(Routes.Pamplona_Barcelona);
-    expect(playerRed.sumAllPoints(), 22);
+
+    expect(playerRed.sumAllPoints(), 12 + 10);
   });
   test("Adding one unfinished ticket", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addTicket(Tickets.Athens_Ankara);
-    expect(playerRed.sumAllPoints(), 12);
+    expect(playerRed.sumAllPoints(), 12 + -5);
   });
   test("Adding one finished ticket", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Athens_Smyrna);
     playerRed.addRoute(Routes.Smyrna_Ankara);
     playerRed.addTicket(Tickets.Athens_Ankara);
-    expect(playerRed.sumAllPoints(), 23);
+    expect(playerRed.sumAllPoints(), 12 + 11);
   });
-  test("Adding multiple unfinished ticket", () {
+  test("Adding multiple unfinished tickets", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addTicket(Tickets.Athens_Ankara);
     playerRed.addTicket(Tickets.Berlin_Bucharest);
     playerRed.addTicket(Tickets.Budapest_Sofia);
     playerRed.addTicket(Tickets.Madrid_Zurich);
-    expect(playerRed.sumAllPoints(), 12);
+    expect(playerRed.sumAllPoints(), 12 + -26);
   });
-  test("Adding multiple finished ticket", () {
+  test("Adding multiple finished tickets", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addTicket(Tickets.Athens_Ankara); //5
     playerRed.addRoute(Routes.Athens_Smyrna); //2
@@ -59,19 +60,33 @@ void main() {
     playerRed.addRoute(Routes.Budapest_Bucharest); //7
     playerRed.addTicket(Tickets.Budapest_Sofia); //5
     playerRed.addRoute(Routes.Sofia_Bucharest); //2
-    expect(playerRed.sumAllPoints(), 38+12);
+    expect(playerRed.sumAllPoints(), 12 + 38);
   });
   test("Reset routes", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Athens_Smyrna);
     playerRed.addRoute(Routes.Smyrna_Ankara);
     playerRed.reset();
-    expect(playerRed.sumAllPoints(), 0+12);
+    expect(playerRed.sumAllPoints(), 12 + 0);
   });
-  test("Longest route", () {
+  test("Longest route 1", () {
     Player playerRed = Player(PlayerColors.red);
     playerRed.addRoute(Routes.Athens_Smyrna);
     playerRed.addRoute(Routes.Smyrna_Ankara);
     expect(playerRed.getMaxRouteLength(), 5);
+  });
+
+  test("Longest route 2", () {
+    Player playerRed = Player(PlayerColors.red);
+    playerRed.addRoute(Routes.Athens_Smyrna); //2
+    playerRed.addRoute(Routes.Smyrna_Constantinople); //2
+    playerRed.addRoute(Routes.Constantinople_Ankara); //2
+    playerRed.addRoute(Routes.Smyrna_Ankara); //3
+    playerRed.addRoute(Routes.Palermo_Smyrna); //6
+
+    // Should be unused
+    playerRed.addRoute(Routes.Constantinople_Sevastopol);
+    playerRed.addRoute(Routes.Ankara_Erzurm);
+    expect(playerRed.getMaxRouteLength(), 15);
   });
 }
