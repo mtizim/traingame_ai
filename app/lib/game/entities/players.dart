@@ -16,11 +16,13 @@ class Player {
   Player(this.color) {
     _routes = PlayerRoutes();
     _tickets = {};
+    _stations = [];
   }
 
   void reset() {
     _routes = PlayerRoutes();
     _tickets = {};
+    _stations = [];
   }
 
   int sumAllPoints() {

@@ -29,7 +29,7 @@ class FinalizedGameState {
 
 class PlayerPoints {
   late final PlayerColors _color;
-  late final int _points;
+  late int _points;
   late final int _maxRouteLength;
 
   PlayerPoints(Player player) {

@@ -30,13 +30,15 @@ class MainActivity: FlutterActivity(){
                 val processedPair = changePerspective(img)
                 if(!processedPair.second){
                     val resultString = "{\"perspective\":false,\"routes\":[],\"stations\":[]}"
+                    Log.i("RESULT",resultString)
                     result.success(resultString)
                 }else{
-                val processedImg = processedPair.first
-                val resultList = predictRectangles(processedImg,"mobilenet-large-HOPE2.pt")
-                val routesString = resultList.joinToString(separator = ",",prefix="\"routes\":[",postfix="]")
-                val stationsString = "\"stations\":[{\"PlayerColour\":\"blue\",\"city\":\"Kyiv\"},{\"PlayerColour\":\"yellow\",\"city\":\"Vienna\"}]"
-                val resultString = arrayOf("{\"perspective\":true",routesString,stationsString).joinToString(separator = ",", postfix = "}")
+                    val processedImg = processedPair.first
+                    val resultList = predictRectangles(processedImg,"mobilenet-large-HOPE2.pt")
+                    val routesString = resultList.joinToString(separator = ",",prefix="\"routes\":[",postfix="]")
+                    val stationsString = "\"stations\":[{\"PlayerColour\":\"blue\",\"city\":\"Kyiv\"},{\"PlayerColour\":\"green\",\"city\":\"Vienna\"}]"
+                    val resultString = arrayOf("{\"perspective\":true",routesString,stationsString).joinToString(separator = ",", postfix = "}")
+                    Log.i("RESULT",resultString)
                 result.success(resultString)
                 }
             }
