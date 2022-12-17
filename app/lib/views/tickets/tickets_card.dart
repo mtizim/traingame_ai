@@ -30,7 +30,7 @@ class TicketCard extends StatelessWidget {
             child: Icon(
               Icons.confirmation_num_outlined,
               size: 24,
-              color: C.lightestest,
+              color: C.white,
             ),
           ),
           Positioned(

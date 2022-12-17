@@ -2,12 +2,11 @@ import 'package:app/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
 class C {
-  static const darkest = Color(0xFF582707);
-  static const dark = Color(0xFF972D07);
-  static const mid = Color(0xFFFF4B3E);
-  static const light = Color(0xFFFFB20F);
-  static const lightest = Color(0xFFFFE548);
-  static const lightestest = Color.fromARGB(255, 255, 242, 171);
+  static const darkest = Color(0xFF264653);
+  static const dark = Color(0xFF2a9d8f);
+  static const mid = Color(0xFFe9c46a);
+  static const light = Color(0xFFf4a261);
+  static const lightest = Color(0xFFe76f51);
 
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);

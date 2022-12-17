@@ -120,7 +120,7 @@ class _CityCard extends StatelessWidget {
                 child: Icon(
                   Icons.confirmation_num_outlined,
                   size: 16,
-                  color: C.lightestest,
+                  color: C.white,
                 ),
               ),
               Positioned(

@@ -60,7 +60,7 @@ class SummaryView extends HookWidget {
     }
     final remaining = summary.skip(3).toList();
     return Container(
-      color: C.lightestest,
+      color: C.white,
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Material(
@@ -143,9 +143,7 @@ class _RemainingPlayerListItem extends StatelessWidget {
       height: 64,
       decoration: BoxDecoration(
         border: Border.all(
-          color: third == null
-              ? C.lightestest
-              : playerColorMap[playerPoints.color]!,
+          color: third == null ? C.white : playerColorMap[playerPoints.color]!,
           width: 6,
         ),
         borderRadius: BorderRadius.circular(8),
@@ -232,8 +230,7 @@ class _ThirdPlace extends StatelessWidget {
           height: 120,
           decoration: BoxDecoration(
             border: Border.all(
-              color:
-                  third == null ? C.lightestest : playerColorMap[third.color]!,
+              color: third == null ? C.white : playerColorMap[third.color]!,
               width: 8,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -266,7 +263,7 @@ class _ThirdPlace extends StatelessWidget {
         Text(
           "#3",
           style: TS.larger.bold.withColor(
-            third != null ? playerColorMap[third.color]! : C.lightestest,
+            third != null ? playerColorMap[third.color]! : C.white,
           ),
           textAlign: TextAlign.center,
         ),
@@ -347,9 +344,7 @@ class _SecondPlace extends StatelessWidget {
           height: 190,
           decoration: BoxDecoration(
             border: Border.all(
-              color: second == null
-                  ? C.lightestest
-                  : playerColorMap[second.color]!,
+              color: second == null ? C.white : playerColorMap[second.color]!,
               width: 8,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -382,7 +377,7 @@ class _SecondPlace extends StatelessWidget {
         Text(
           "#2",
           style: TS.larger.bold.withColor(
-            second != null ? playerColorMap[second.color]! : C.lightestest,
+            second != null ? playerColorMap[second.color]! : C.white,
           ),
           textAlign: TextAlign.center,
         ),

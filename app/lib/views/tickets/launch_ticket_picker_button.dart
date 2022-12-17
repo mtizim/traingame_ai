@@ -43,7 +43,7 @@ class LaunchTicketPickerButton extends StatelessWidget {
           child: Icon(
             Icons.add_rounded,
             size: 60,
-            color: C.lightestest,
+            color: C.white,
           ),
         ),
       ),
