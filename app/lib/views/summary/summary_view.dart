@@ -179,7 +179,7 @@ class _RemainingPlayerListItem extends StatelessWidget {
   }
 }
 
-class _Podium extends StatelessWidget {
+class _Podium extends HookWidget {
   const _Podium({
     Key? key,
     required this.second,
@@ -191,21 +191,67 @@ class _Podium extends StatelessWidget {
   final PlayerPoints first;
   final PlayerPoints? third;
 
+  Widget _placeWidget(PlayerPoints? player, List<int> points, int normalPlace) {
+    if (player == null) {
+      switch (normalPlace) {
+        case 1:
+          // Shouldn't ever happen
+          return _FirstPlace(player: player!);
+        case 2:
+          return _SecondPlace(player: player);
+        case 3:
+          return _ThirdPlace(player: player);
+        default:
+          return const SizedBox();
+      }
+    }
+
+    final playerPoints = player.points;
+    if (playerPoints == points[0]) {
+      return _FirstPlace(player: player);
+    }
+
+    if (playerPoints == points[1]) {
+      return _SecondPlace(player: player);
+    }
+
+    if (playerPoints == points[2]) {
+      return _ThirdPlace(player: player);
+    }
+    return const SizedBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     final first = this.first;
     final second = this.second;
     final third = this.third;
+
+    // handle equal amounts of points on the podium
+    final points = useMemoized(
+      () {
+        final points = [first, second, third]
+            .map((v) => v?.points)
+            .where((e) => e != null)
+            .whereType<int>()
+            .toSet()
+            .toList();
+        points.sort(((a, b) => b.compareTo(a)));
+        return points;
+      },
+      [first, second, third],
+    );
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const Spacer(),
-        _SecondPlace(second: second),
+        _placeWidget(second, points, 2),
         const Spacer(),
-        _FirstPlace(first: first),
+        _placeWidget(first, points, 1),
         const Spacer(),
-        _ThirdPlace(third: third),
+        _placeWidget(third, points, 3),
         const Spacer(),
       ],
     );
@@ -215,14 +261,14 @@ class _Podium extends StatelessWidget {
 class _ThirdPlace extends StatelessWidget {
   const _ThirdPlace({
     Key? key,
-    required this.third,
+    required this.player,
   }) : super(key: key);
 
-  final PlayerPoints? third;
+  final PlayerPoints? player;
 
   @override
   Widget build(BuildContext context) {
-    final third = this.third;
+    final third = player;
     return Column(
       children: [
         Container(
@@ -275,10 +321,10 @@ class _ThirdPlace extends StatelessWidget {
 class _FirstPlace extends StatelessWidget {
   const _FirstPlace({
     Key? key,
-    required this.first,
+    required this.player,
   }) : super(key: key);
 
-  final PlayerPoints first;
+  final PlayerPoints player;
 
   @override
   Widget build(BuildContext context) {
@@ -289,7 +335,7 @@ class _FirstPlace extends StatelessWidget {
           height: 260,
           decoration: BoxDecoration(
             border: Border.all(
-              color: playerColorMap[first.color]!,
+              color: playerColorMap[player.color]!,
               width: 8,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -302,13 +348,13 @@ class _FirstPlace extends StatelessWidget {
               ),
               Icon(
                 Icons.person,
-                color: playerColorMap[first.color]!,
+                color: playerColorMap[player.color]!,
                 size: 40,
               ),
               const Spacer(),
               Text(
-                first.points.toString(),
-                style: TS.larger.bold.withColor(playerColorMap[first.color]!),
+                player.points.toString(),
+                style: TS.larger.bold.withColor(playerColorMap[player.color]!),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
@@ -318,7 +364,7 @@ class _FirstPlace extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           "#1",
-          style: TS.larger.bold.withColor(playerColorMap[first.color]!),
+          style: TS.larger.bold.withColor(playerColorMap[player.color]!),
           textAlign: TextAlign.center,
         ),
       ],
@@ -329,14 +375,14 @@ class _FirstPlace extends StatelessWidget {
 class _SecondPlace extends StatelessWidget {
   const _SecondPlace({
     Key? key,
-    required this.second,
+    required this.player,
   }) : super(key: key);
 
-  final PlayerPoints? second;
+  final PlayerPoints? player;
 
   @override
   Widget build(BuildContext context) {
-    final second = this.second;
+    final second = player;
     return Column(
       children: [
         Container(
