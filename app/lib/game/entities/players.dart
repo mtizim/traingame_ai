@@ -48,6 +48,9 @@ class Player {
   }
 
   int _sumTicketsPoints(PlayerRoutes allPlayerRoutes) {
+    if (_tickets.isEmpty) {
+      return 0;
+    }
     final possibleStationRoutes = Routes.values
         .where(
           (route) => _stations
