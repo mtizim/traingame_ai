@@ -132,6 +132,7 @@ class Player {
   int getMaxRouteLength() {
     // naive algorithm because N is really small
     final routes = _routes.routes;
+    if(routes.isEmpty){return 0;}
     final cities = routes.map((route) => route.cities).expand((e) => e).toSet();
     return cities.map((city) => _getMaxRouteLength(city, routes)).reduce(max);
   }

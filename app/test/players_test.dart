@@ -68,4 +68,11 @@ void main() {
     playerRed.reset();
     expect(playerRed.sumAllPoints(), 0);
   });
+  test("Longest route", () {
+    Player playerRed = Player(PlayerColors.red);
+    playerRed.addRoute(Routes.Athens_Smyrna);
+    playerRed.addRoute(Routes.Smyrna_Ankara);
+    expect(playerRed.getMaxRouteLength(), 5);
+
+  });
 }
