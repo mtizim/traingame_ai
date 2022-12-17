@@ -38,7 +38,9 @@ Future<Result> detectRoutesFromImage(XFile image) async {
   await Future.wait([processing, artificialDelay]);
   // await is a no-op - the future is already finished
   final jsonString = await processing;
-  final json = jsonDecode(jsonString);
+  // TEST
+  // final json = jsonDecode(jsonString);
+  final json = jsonDecode("{\"perspective\":true,\"routes\":[{\"PlayerColour\":\"green\",\"cities\":[\"Sarajevo\",\"Sofia\"]},{\"PlayerColour\":\"black\",\"cities\":[\"Vienna\",\"Budapest\"]},{\"PlayerColour\":\"blue\",\"cities\":[\"Budapest\",\"Sarajevo\"]}],\"stations\":[{\"PlayerColour\":\"blue\",\"city\":\"Sarajevo\"}]}");
   final routesResult = <RouteResult?>[];
   final stationsResult = <StationResult?>[];
   if (!json['perspective']) {
