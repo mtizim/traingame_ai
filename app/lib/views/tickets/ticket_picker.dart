@@ -134,7 +134,7 @@ class _CityCard extends StatelessWidget {
                     child: Text(
                       city.name,
                       textAlign: TextAlign.center,
-                      style: TS.small.bold,
+                      style: TS.smaller.bold,
                     ),
                   ),
                 ),

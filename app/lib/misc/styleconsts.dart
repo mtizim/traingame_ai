@@ -19,6 +19,13 @@ class C {
 }
 
 class TS {
+  static const smaller = TextStyle(
+    fontFamily: FontFamily.rubik,
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    height: 16 / 10,
+  );
+
   static const small = TextStyle(
     fontFamily: FontFamily.rubik,
     fontSize: 12,
