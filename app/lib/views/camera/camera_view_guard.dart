@@ -151,6 +151,7 @@ class _RetakeView extends StatelessWidget {
               child: const Text(
                 "Spróbuj zrobić zdjęcie ponownie",
                 style: TS.standard,
+                textAlign: TextAlign.center,
               ),
             ),
             const Spacer(
