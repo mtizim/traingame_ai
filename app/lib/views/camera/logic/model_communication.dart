@@ -22,14 +22,14 @@ class StationResult {
   StationResult(this.color, this.city);
 }
 
-class Result {
+class ModelResult {
   final bool perspectiveSuccess;
   final List<RouteResult> routesResults;
   final List<StationResult> stationResults;
-  Result(this.perspectiveSuccess, this.routesResults, this.stationResults);
+  ModelResult(this.perspectiveSuccess, this.routesResults, this.stationResults);
 }
 
-Future<Result> detectRoutesFromImage(XFile image) async {
+Future<ModelResult> detectRoutesFromImage(XFile image) async {
   const platform = MethodChannel("com.flutter.result/result");
   final bytes = await image.readAsBytes();
   final processing = platform
@@ -42,7 +42,7 @@ Future<Result> detectRoutesFromImage(XFile image) async {
   final routesResult = <RouteResult?>[];
   final stationsResult = <StationResult?>[];
   if (!json['perspective']) {
-    return Result(
+    return ModelResult(
       false,
       routesResult.whereType<RouteResult>().toList(),
       stationsResult.whereType<StationResult>().toList(),
@@ -54,7 +54,7 @@ Future<Result> detectRoutesFromImage(XFile image) async {
   for (LinkedHashMap<String, dynamic> route in json['stations']) {
     stationsResult.add(stationFromJson(route));
   }
-  Result result = Result(
+  ModelResult result = ModelResult(
     true,
     routesResult.whereType<RouteResult>().toList(),
     stationsResult.whereType<StationResult>().toList(),

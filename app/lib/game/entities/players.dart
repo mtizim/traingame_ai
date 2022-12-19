@@ -166,4 +166,5 @@ class Player {
   }
 
   PlayerRoutes get routes => _routes;
+  List<Cities> get stations => _stations;
 }

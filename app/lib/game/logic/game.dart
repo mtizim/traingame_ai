@@ -5,6 +5,7 @@ import 'package:app/game/entities/players.dart';
 import 'package:app/game/entities/routes.dart';
 import 'package:app/game/entities/tickets.dart';
 import 'package:app/game/logic/summary.dart';
+import 'package:app/views/camera/logic/model_communication.dart';
 
 class MutableGameState {
   MutableGameState.fromFinalized(this._players);
@@ -42,6 +43,25 @@ class MutableGameState {
     _players = HashMap();
   }
 
+  BoardData getBoardData() {
+    final players = _players.values;
+    final routes = players
+        .map(
+          (player) => player.routes.routes
+              .map((route) => RouteResult(player.color, route)),
+        )
+        .expand((i) => i)
+        .toList();
+    final stations = players
+        .map(
+          (player) => player.stations
+              .map((station) => StationResult(player.color, station)),
+        )
+        .expand((i) => i)
+        .toList();
+    return BoardData(routes, stations);
+  }
+
   void setPlayerTicket(PlayerColors playerColor, Tickets ticket) {
     if (!_players.containsKey(playerColor)) {
       _players[playerColor] = Player(playerColor);
@@ -53,4 +73,10 @@ class MutableGameState {
   FinalizedGameState finalize() {
     return FinalizedGameState(_players);
   }
+}
+
+class BoardData {
+  final List<RouteResult> routes;
+  final List<StationResult> stations;
+  BoardData(this.routes, this.stations);
 }

@@ -28,17 +28,12 @@ class GameCubit extends Cubit<GameCubitState> {
       finalized: (finalized) => emit(
         GameCubitState.counting(
           gameState: finalized.gameState.toMutable(),
+          routesConfirmed: false,
           ticketsKnown: false,
           routesKnown: false,
         ),
       ),
-      reset: (_) => emit(
-        GameCubitState.counting(
-          gameState: MutableGameState(),
-          ticketsKnown: false,
-          routesKnown: false,
-        ),
-      ),
+      reset: (_) => forgetAll(),
     );
     return state.mapOrNull(counting: ((c) => c))!;
   }
@@ -46,13 +41,31 @@ class GameCubit extends Cubit<GameCubitState> {
   void _checkIfAllKnown(GameCubitState state_) {
     state_.mapOrNull(
       counting: (s) {
-        if (!(s.routesKnown && s.ticketsKnown)) return;
+        if (!(s.routesKnown && s.ticketsKnown && s.routesConfirmed)) return;
         emit(GameCubitState.finalized(gameState: s.gameState.finalize()));
       },
     );
   }
 
-  bool consumeModelResults(Result result) {
+  void confirmRoutes() {
+    final countingState = _ensureCounting();
+    final nextState = countingState.copyWith(routesConfirmed: true);
+    emit(nextState);
+    _checkIfAllKnown(nextState);
+  }
+
+  void forgetAll() {
+    emit(
+      GameCubitState.counting(
+        gameState: MutableGameState(),
+        routesConfirmed: false,
+        ticketsKnown: false,
+        routesKnown: false,
+      ),
+    );
+  }
+
+  bool consumeModelResults(ModelResult result) {
     final countingState = _ensureCounting();
 
     if (!result.perspectiveSuccess) {
@@ -119,6 +132,7 @@ class GameCubitState with _$GameCubitState {
   const factory GameCubitState.counting({
     required MutableGameState gameState,
     required bool ticketsKnown,
+    required bool routesConfirmed,
     required bool routesKnown,
   }) = GameCubitStateCounting;
   const factory GameCubitState.finalized({

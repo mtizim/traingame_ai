@@ -16,6 +16,8 @@ class C {
   static const playerGreen = Colors.green;
   static const playerYellow = Colors.yellow;
   static const playerRed = Colors.red;
+
+  static const noPlayer = Color(0xFFBBBBBB);
 }
 
 class TS {

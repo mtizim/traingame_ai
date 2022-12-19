@@ -12,7 +12,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      elevation: 4,
+      elevation: 8,
       color: color,
       child: InkWell(
         onTap: onTap,

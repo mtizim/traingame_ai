@@ -2,6 +2,7 @@ import 'package:app/misc/styleconsts.dart';
 import 'package:app/views/camera/camera_view_guard.dart';
 import 'package:app/views/global_logic/game_cubit.dart';
 import 'package:app/views/initial_view.dart';
+import 'package:app/views/routes_confirmation/routes_confirmation.dart';
 import 'package:app/views/summary/summary_view.dart';
 import 'package:app/views/tickets/tickets_view.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,12 @@ class App extends StatelessWidget {
               counting: (c) {
                 if (!c.routesKnown) {
                   CameraViewRoute.goTo(context);
+                } else if (!c.routesConfirmed) {
+                  RoutesConfirmRoute.goTo(
+                    context,
+                    c.gameState.getBoardData(),
+                    replace: true,
+                  );
                 } else if (!c.ticketsKnown) {
                   TicketsViewRoute.goTo(context, replace: true);
                 }

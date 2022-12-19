@@ -19,8 +19,8 @@ mixin _$GameCubitState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
-    required TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)
+    required TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)
         counting,
     required TResult Function(FinalizedGameState gameState) finalized,
   }) =>
@@ -28,8 +28,8 @@ mixin _$GameCubitState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult? Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult? Function(FinalizedGameState gameState)? finalized,
   }) =>
@@ -37,8 +37,8 @@ mixin _$GameCubitState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult Function(FinalizedGameState gameState)? finalized,
     required TResult orElse(),
@@ -125,8 +125,8 @@ class _$GameCubitStateReset implements GameCubitStateReset {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
-    required TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)
+    required TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)
         counting,
     required TResult Function(FinalizedGameState gameState) finalized,
   }) {
@@ -137,8 +137,8 @@ class _$GameCubitStateReset implements GameCubitStateReset {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult? Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult? Function(FinalizedGameState gameState)? finalized,
   }) {
@@ -149,8 +149,8 @@ class _$GameCubitStateReset implements GameCubitStateReset {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult Function(FinalizedGameState gameState)? finalized,
     required TResult orElse(),
@@ -206,7 +206,11 @@ abstract class _$$GameCubitStateCountingCopyWith<$Res> {
           $Res Function(_$GameCubitStateCounting) then) =
       __$$GameCubitStateCountingCopyWithImpl<$Res>;
   @useResult
-  $Res call({MutableGameState gameState, bool ticketsKnown, bool routesKnown});
+  $Res call(
+      {MutableGameState gameState,
+      bool ticketsKnown,
+      bool routesConfirmed,
+      bool routesKnown});
 }
 
 /// @nodoc
@@ -222,6 +226,7 @@ class __$$GameCubitStateCountingCopyWithImpl<$Res>
   $Res call({
     Object? gameState = null,
     Object? ticketsKnown = null,
+    Object? routesConfirmed = null,
     Object? routesKnown = null,
   }) {
     return _then(_$GameCubitStateCounting(
@@ -232,6 +237,10 @@ class __$$GameCubitStateCountingCopyWithImpl<$Res>
       ticketsKnown: null == ticketsKnown
           ? _value.ticketsKnown
           : ticketsKnown // ignore: cast_nullable_to_non_nullable
+              as bool,
+      routesConfirmed: null == routesConfirmed
+          ? _value.routesConfirmed
+          : routesConfirmed // ignore: cast_nullable_to_non_nullable
               as bool,
       routesKnown: null == routesKnown
           ? _value.routesKnown
@@ -247,6 +256,7 @@ class _$GameCubitStateCounting implements GameCubitStateCounting {
   const _$GameCubitStateCounting(
       {required this.gameState,
       required this.ticketsKnown,
+      required this.routesConfirmed,
       required this.routesKnown});
 
   @override
@@ -254,11 +264,13 @@ class _$GameCubitStateCounting implements GameCubitStateCounting {
   @override
   final bool ticketsKnown;
   @override
+  final bool routesConfirmed;
+  @override
   final bool routesKnown;
 
   @override
   String toString() {
-    return 'GameCubitState.counting(gameState: $gameState, ticketsKnown: $ticketsKnown, routesKnown: $routesKnown)';
+    return 'GameCubitState.counting(gameState: $gameState, ticketsKnown: $ticketsKnown, routesConfirmed: $routesConfirmed, routesKnown: $routesKnown)';
   }
 
   @override
@@ -270,13 +282,15 @@ class _$GameCubitStateCounting implements GameCubitStateCounting {
                 other.gameState == gameState) &&
             (identical(other.ticketsKnown, ticketsKnown) ||
                 other.ticketsKnown == ticketsKnown) &&
+            (identical(other.routesConfirmed, routesConfirmed) ||
+                other.routesConfirmed == routesConfirmed) &&
             (identical(other.routesKnown, routesKnown) ||
                 other.routesKnown == routesKnown));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, gameState, ticketsKnown, routesKnown);
+  int get hashCode => Object.hash(
+      runtimeType, gameState, ticketsKnown, routesConfirmed, routesKnown);
 
   @JsonKey(ignore: true)
   @override
@@ -289,38 +303,39 @@ class _$GameCubitStateCounting implements GameCubitStateCounting {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
-    required TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)
+    required TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)
         counting,
     required TResult Function(FinalizedGameState gameState) finalized,
   }) {
-    return counting(gameState, ticketsKnown, routesKnown);
+    return counting(gameState, ticketsKnown, routesConfirmed, routesKnown);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult? Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult? Function(FinalizedGameState gameState)? finalized,
   }) {
-    return counting?.call(gameState, ticketsKnown, routesKnown);
+    return counting?.call(
+        gameState, ticketsKnown, routesConfirmed, routesKnown);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult Function(FinalizedGameState gameState)? finalized,
     required TResult orElse(),
   }) {
     if (counting != null) {
-      return counting(gameState, ticketsKnown, routesKnown);
+      return counting(gameState, ticketsKnown, routesConfirmed, routesKnown);
     }
     return orElse();
   }
@@ -364,10 +379,12 @@ abstract class GameCubitStateCounting implements GameCubitState {
   const factory GameCubitStateCounting(
       {required final MutableGameState gameState,
       required final bool ticketsKnown,
+      required final bool routesConfirmed,
       required final bool routesKnown}) = _$GameCubitStateCounting;
 
   MutableGameState get gameState;
   bool get ticketsKnown;
+  bool get routesConfirmed;
   bool get routesKnown;
   @JsonKey(ignore: true)
   _$$GameCubitStateCountingCopyWith<_$GameCubitStateCounting> get copyWith =>
@@ -441,8 +458,8 @@ class _$GameCubitStateFinalized implements GameCubitStateFinalized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
-    required TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)
+    required TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)
         counting,
     required TResult Function(FinalizedGameState gameState) finalized,
   }) {
@@ -453,8 +470,8 @@ class _$GameCubitStateFinalized implements GameCubitStateFinalized {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? reset,
-    TResult? Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult? Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult? Function(FinalizedGameState gameState)? finalized,
   }) {
@@ -465,8 +482,8 @@ class _$GameCubitStateFinalized implements GameCubitStateFinalized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? reset,
-    TResult Function(
-            MutableGameState gameState, bool ticketsKnown, bool routesKnown)?
+    TResult Function(MutableGameState gameState, bool ticketsKnown,
+            bool routesConfirmed, bool routesKnown)?
         counting,
     TResult Function(FinalizedGameState gameState)? finalized,
     required TResult orElse(),
