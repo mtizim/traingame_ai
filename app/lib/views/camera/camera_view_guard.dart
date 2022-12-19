@@ -137,7 +137,7 @@ class _RetakeView extends StatelessWidget {
                 const Icon(Icons.priority_high, size: 64),
                 Expanded(
                   child: Text(
-                    '''Nie udało się zanalizować zdjęcia''',
+                    '''Nie udało się przeanalizować zdjęcia''',
                     style: TS.standardMinus.withColor(C.mid),
                   ),
                 ),

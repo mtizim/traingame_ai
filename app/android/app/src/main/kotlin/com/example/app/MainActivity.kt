@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import com.example.app.Utils.assetFilePath
+import com.example.app.entities.Cities
 import com.example.app.entities.Routes
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -34,9 +35,9 @@ class MainActivity: FlutterActivity(){
                     result.success(resultString)
                 }else{
                     val processedImg = processedPair.first
-                    val resultList = predictRectangles(processedImg,"mobilenet-large-HOPE2.pt")
-                    val routesString = resultList.joinToString(separator = ",",prefix="\"routes\":[",postfix="]")
-                    val stationsString = "\"stations\":[{\"PlayerColour\":\"blue\",\"city\":\"Kyiv\"},{\"PlayerColour\":\"green\",\"city\":\"Vienna\"}]"
+                    val resultPair = predictRectangles(processedImg)
+                    val routesString = resultPair.first.joinToString(separator = ",",prefix="\"routes\":[",postfix="]")
+                    val stationsString = resultPair.second.joinToString(separator = ",",prefix="\"stations\":[",postfix="]")
                     val resultString = arrayOf("{\"perspective\":true",routesString,stationsString).joinToString(separator = ",", postfix = "}")
                     Log.i("RESULT",resultString)
                 result.success(resultString)
@@ -125,14 +126,13 @@ class MainActivity: FlutterActivity(){
         return template
     }
 
-    private fun predictRectangles(img:Mat,name: String):MutableList<String>{
-        val resultList : MutableList<String> = arrayListOf()
-        val labels = listOf<String>("black","blue","empty","green","red","yellow")
-        val classifier = Classifier(assetFilePath(this,name))
-        if(name=="mobilenet-large-HOPE2.pt"){
-            classifier.setMeanAndStd(floatArrayOf(0.7838f, 0.6432f, 0.3390f),floatArrayOf(0.1693f, 0.1852f, 0.2066f))
-        }
-        val pts2 = MatOfPoint2f(
+    private fun predictRectangles(img:Mat):Pair<MutableList<String>, MutableList<String>>{
+        val routesList : MutableList<String> = arrayListOf()
+        val stationsList : MutableList<String> = arrayListOf()
+        val labels = listOf("black","blue","empty","green","red","yellow")
+        var classifier = Classifier(assetFilePath(this,"mobilenet-large-HOPE2.pt"))
+        classifier.setMeanAndStd(floatArrayOf(0.7838f, 0.6432f, 0.3390f),floatArrayOf(0.1693f, 0.1852f, 0.2066f))
+        var pts2 = MatOfPoint2f(
             Point(0.0,0.0),
             Point(100.0,0.0),
             Point(0.0,150.0),
@@ -151,9 +151,32 @@ class MainActivity: FlutterActivity(){
             val prediction = labels[classifier.predict(predictionBmp)]
             if(prediction!="empty"){
                 val cities = route._cities.toList()
-                resultList.add("{\"PlayerColour\":\"${prediction}\",\"cities\":[\"${cities[0]}\",\"${cities[1]}\"]}")
+                routesList.add("{\"PlayerColour\":\"${prediction}\",\"cities\":[\"${cities[0]}\",\"${cities[1]}\"]}")
             }
         }
-        return resultList
+        classifier = Classifier(assetFilePath(this,"mobilenet-x5.pt"))
+        classifier.setMeanAndStd(floatArrayOf(0.485f, 0.456f, 0.406f),floatArrayOf(0.229f, 0.224f, 0.225f))
+        pts2 = MatOfPoint2f(
+            Point(0.0,0.0),
+            Point(70.0,0.0),
+            Point(0.0,70.0),
+            Point(70.0,70.0)
+        )
+        for(city in Cities.values()){
+            val pts1 = MatOfPoint2f(*city.getLocation())
+            val transformMat = Imgproc.getPerspectiveTransform(pts1, pts2)
+            val resultMat = Mat()
+            Imgproc.warpPerspective(img, resultMat, transformMat, img.size())
+            val rectCrop = Rect(0, 0, 70, 70)
+            val toPredict = Mat(resultMat,rectCrop)
+            val predictionBmp : Bitmap =
+                Bitmap.createBitmap(toPredict.cols(), toPredict.rows(), Bitmap.Config.RGB_565)
+            Utils.matToBitmap(toPredict, predictionBmp)
+            val prediction = labels[classifier.predict(predictionBmp)]
+            if(prediction!="empty"){
+                stationsList.add("{\"PlayerColour\":\"${prediction}\",\"city\":\"${city.name}\"}")
+            }
+        }
+        return Pair(routesList,stationsList)
         }
 }
