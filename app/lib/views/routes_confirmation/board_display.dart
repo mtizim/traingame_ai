@@ -90,6 +90,15 @@ class _BoardPainter extends CustomPainter {
   bool shouldRepaint(_BoardPainter old) => false;
 }
 
+Offset _tangentLineDelta(Offset start, Offset end, double scale) {
+  final slope = (start.dx - end.dx) / (start.dy - end.dy);
+  final tangentSlope = -(1 / slope);
+  final unscaled = Offset(1, tangentSlope);
+  final unscaledLength = unscaled.distance;
+
+  return unscaled * scale / unscaledLength;
+}
+
 extension GetOffset on Cities {
   Offset _locationToOffset(
     double width,
