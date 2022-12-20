@@ -63,6 +63,7 @@ class RoutesConfirmView extends StatelessWidget {
             ),
             const Spacer(flex: 1),
             Material(
+              color: C.white,
               elevation: 16,
               borderRadius: BorderRadius.circular(16),
               child: Padding(
