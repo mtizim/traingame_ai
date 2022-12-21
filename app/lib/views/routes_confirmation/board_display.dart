@@ -17,7 +17,9 @@ class BoardDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _BoardPainter(boardData),
+      foregroundPainter: _BoardPainter(boardData),
+      isComplex: true,
+      child: Container(color: Colors.white),
     );
   }
 }
@@ -27,28 +29,23 @@ class _BoardPainter extends CustomPainter {
 
   final BoardData boardData;
 
+  static const noPlayerRouteWidth = 1.5;
+  static const playerRouteWidth = 6.0;
+  static const cityRadius = 4.0;
+  static const stationRadius = 6.0;
+  static const leftRightShift = 2.0;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final width = size.width;
-
-    const noPlayerRouteWidth = 1.5;
-    const playerRouteWidth = 6.0;
-    const cityRadius = 4.0;
-    const stationRadius = 6.0;
-
     final noPlayerPaint = Paint()
       ..color = C.noPlayer
       ..strokeWidth = noPlayerRouteWidth
-      ..style = PaintingStyle.fill
-      ..strokeCap = StrokeCap.round;
+      ..style = PaintingStyle.fill;
 
-    Routes.values.forEach((route) {
-      final cities = route.cities.toList();
-      canvas.drawLine(
-        cities[0]._locationToOffset(width),
-        cities[1]._locationToOffset(width),
-        noPlayerPaint,
-      );
+    final width = size.width;
+
+    Routes.values.toList().take(200).forEach((route) {
+      drawRoute(route, canvas, noPlayerPaint, width, false);
     });
 
     boardData.routes.forEach((routeData) {
@@ -57,12 +54,7 @@ class _BoardPainter extends CustomPainter {
         ..style = PaintingStyle.fill
         ..strokeWidth = playerRouteWidth
         ..strokeCap = StrokeCap.round;
-      final cities = routeData.route.cities.toList();
-      canvas.drawLine(
-        cities[0]._locationToOffset(width),
-        cities[1]._locationToOffset(width),
-        playerPaint,
-      );
+      drawRoute(routeData.route, canvas, playerPaint, width, true);
     });
 
     Cities.values.forEach((city) {
@@ -76,8 +68,7 @@ class _BoardPainter extends CustomPainter {
     boardData.stations.forEach((cityData) {
       final playerPaint = Paint()
         ..color = playerColorMap[cityData.color]!
-        ..style = PaintingStyle.fill
-        ..strokeCap = StrokeCap.round;
+        ..style = PaintingStyle.fill;
       canvas.drawCircle(
         cityData.city._locationToOffset(width),
         stationRadius,
@@ -86,17 +77,75 @@ class _BoardPainter extends CustomPainter {
     });
   }
 
+  void drawRoute(
+    Routes route,
+    Canvas canvas,
+    Paint paint,
+    double width,
+    bool reduceAdjacent,
+  ) {
+    final cities = route.cities.toList();
+    var cityOneLocation = cities[0]._locationToOffset(width);
+    var cityTwoLocation = cities[1]._locationToOffset(width);
+
+    if (Routes.leftRoutes.contains(route)) {
+      final shift = _tangentLineDeltaRightUp(
+        cityOneLocation,
+        cityTwoLocation,
+        leftRightShift,
+      );
+
+      cityOneLocation -= shift;
+      cityTwoLocation -= shift;
+      if (reduceAdjacent) {
+        paint.strokeWidth /= 1.5;
+      }
+      canvas.drawLine(cityOneLocation, cityTwoLocation, paint);
+    } else if (Routes.rightRoutes.contains(route)) {
+      final shift = _tangentLineDeltaRightUp(
+        cityOneLocation,
+        cityTwoLocation,
+        leftRightShift,
+      );
+
+      cityOneLocation += shift;
+      cityTwoLocation += shift;
+      if (reduceAdjacent) {
+        paint.strokeWidth /= 1.5;
+      }
+      canvas.drawLine(cityOneLocation, cityTwoLocation, paint);
+    } else {
+      canvas.drawLine(cityOneLocation, cityTwoLocation, paint);
+    }
+  }
+
   @override
-  bool shouldRepaint(_BoardPainter old) => false;
+  bool shouldRepaint(_BoardPainter old) => true;
 }
 
-Offset _tangentLineDelta(Offset start, Offset end, double scale) {
-  final slope = (start.dx - end.dx) / (start.dy - end.dy);
-  final tangentSlope = -(1 / slope);
-  final unscaled = Offset(1, tangentSlope);
+Offset _tangentLineDeltaRightUp(Offset start, Offset end, double scale) {
+  final goodOrder = start.dy <= end.dy;
+  late final Offset lower;
+  late final Offset upper;
+  if (goodOrder) {
+    lower = start;
+    upper = end;
+  } else {
+    lower = end;
+    upper = start;
+  }
+
+  final dy = lower.dy - upper.dy;
+  final dx = lower.dx - upper.dx;
+  if (dy == 0) {
+    return Offset(0, -dx.sign);
+  }
+
+  final slope = (dy) / (dx);
+  final unscaled = Offset(-slope, 1);
   final unscaledLength = unscaled.distance;
 
-  return unscaled * scale / unscaledLength;
+  return (unscaled / unscaledLength) * scale;
 }
 
 extension GetOffset on Cities {

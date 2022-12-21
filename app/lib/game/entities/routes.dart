@@ -110,7 +110,7 @@ enum Routes {
 
   const Routes(this._cities, this.distance);
 
-  static const leftRoutes = [
+  static const leftRoutes = {
     Routes.Madrid_Pamplona,
     Routes.Pamplona_Paris,
     Routes.Dieppe_London,
@@ -122,8 +122,8 @@ enum Routes {
     Routes.Copenhagen_Stockholm,
     Routes.Berlin_Warsaw,
     Routes.Vienna_Budapest,
-  ];
-  static const rightRoutes = [
+  };
+  static const rightRoutes = {
     Routes.Madrid_Pamplona2,
     Routes.Pamplona_Paris2,
     Routes.Dieppe_London2,
@@ -135,7 +135,7 @@ enum Routes {
     Routes.Copenhagen_Stockholm2,
     Routes.Berlin_Warsaw2,
     Routes.Vienna_Budapest2,
-  ];
+  };
 
   Set<Cities> get cities {
     return _cities;
