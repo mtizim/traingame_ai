@@ -74,7 +74,10 @@ class GameCubit extends Cubit<GameCubitState> {
 
     List<RouteResult> routeResults = result.routesResults;
     List<StationResult> stationResults = result.stationResults;
-    final detectedColors = routeResults.map((r) => r.color).toSet();
+    final detectedColors = routeResults
+        .map((r) => r.color)
+        .toSet()
+        .union(stationResults.map((s) => s.color).toSet());
 
     if (detectedColors.isEmpty) {
       return false;
