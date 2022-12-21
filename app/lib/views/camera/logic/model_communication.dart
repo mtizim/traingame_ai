@@ -48,8 +48,9 @@ Future<ModelResult> detectRoutesFromImage(XFile image) async {
       stationsResult.whereType<StationResult>().toList(),
     );
   }
+  final toCheck = Routes.values.toList();
   for (LinkedHashMap<String, dynamic> route in json['routes']) {
-    routesResult.add(routeFromJson(route));
+    routesResult.add(routeFromJson(route,toCheck));
   }
   for (LinkedHashMap<String, dynamic> route in json['stations']) {
     stationsResult.add(stationFromJson(route));
@@ -62,10 +63,11 @@ Future<ModelResult> detectRoutesFromImage(XFile image) async {
   return result;
 }
 
-RouteResult? routeFromJson(LinkedHashMap<String, dynamic> json) {
-  for (Routes i in Routes.values) {
+RouteResult? routeFromJson(LinkedHashMap<String, dynamic> json,List toCheck) {
+  for (Routes i in toCheck) {
     List<String> cities = i.citiesNames;
     if (cities.toSet().containsAll(json['cities'].toSet())) {
+      toCheck.remove(i);
       for (PlayerColors j in PlayerColors.values) {
         if (j.name == json['PlayerColour']) {
           return RouteResult(j, i);

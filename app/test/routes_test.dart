@@ -3,7 +3,7 @@ import 'package:app/game/entities/routes.dart';
 
 void main() {
   test("Number of routes", () {
-    expect(Routes.values.length, 90);
+    expect(Routes.values.length, 101);
   });
   group("Points for different route lengths", () {
     test("Route length 1", ()
