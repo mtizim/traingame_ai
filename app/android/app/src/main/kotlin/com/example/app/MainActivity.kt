@@ -151,7 +151,7 @@ class MainActivity: FlutterActivity(){
             val prediction = labels[classifier.predict(predictionBmp)]
             if(prediction!="empty"){
                 val cities = route._cities.toList()
-                routesList.add("{\"PlayerColour\":\"${prediction}\",\"cities\":[\"${cities[0]}\",\"${cities[1]}\"]}")
+                routesList.add("{\"PlayerColour\":\"${prediction}\",\"route\":\"${route.name}\"}")
             }
         }
         classifier = Classifier(assetFilePath(this,"mobilenet-x5.pt"))
