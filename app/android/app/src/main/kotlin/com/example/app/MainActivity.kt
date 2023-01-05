@@ -73,7 +73,6 @@ class MainActivity: FlutterActivity(){
         val points = arrayOf(Point(0.0,0.0),Point(0.0,0.0),Point(0.0,0.0),Point(0.0,0.0))
         val maxVals = arrayOf(0.0,0.0,0.0,0.0)
         for((corner_number, corner_name) in corners.withIndex()){
-            //CROPPING
             val rectCrop = Rect((corner_number%2*4.0/5.0*gray.cols()).toInt(), (corner_number/2*4.0/5.0*gray.rows()).toInt(),
                 (gray.cols()/5.0).toInt(), (gray.rows()/5.0).toInt())
             val findIn = Mat(gray,rectCrop)
@@ -150,7 +149,6 @@ class MainActivity: FlutterActivity(){
             Utils.matToBitmap(toPredict, predictionBmp)
             val prediction = labels[classifier.predict(predictionBmp)]
             if(prediction!="empty"){
-                val cities = route._cities.toList()
                 routesList.add("{\"PlayerColour\":\"${prediction}\",\"route\":\"${route.name}\"}")
             }
         }
