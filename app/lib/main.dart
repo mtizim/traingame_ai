@@ -6,9 +6,14 @@ import 'package:app/views/routes_confirmation/routes_confirmation.dart';
 import 'package:app/views/summary/summary_view.dart';
 import 'package:app/views/tickets/tickets_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const App());
 }
